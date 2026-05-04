@@ -5,22 +5,22 @@ import { getContact } from '@/lib/ghl/conversations'
 import { logger } from '@/lib/logger'
 
 /**
- * GHL marketplace app webhook receiver — InboundMessage events.
+ * Marketplace webhook receiver — InboundMessage events.
  *
  * Architecture:
- *   - Single webhook subscription registered at the agency-level marketplace
+ *   - Single webhook subscription registered on the agency-level marketplace
  *     app. Fires for every sub-account where the app is installed; payload's
  *     `locationId` identifies the scout's IG alias.
  *   - We filter to InboundMessage + IG channel only; everything else is ack'd
  *     and ignored.
- *   - For each IG inbound, fetch the GHL contact, extract the IG handle,
- *     match to a CrateHQ artist, store as a conversation, advance any matching
- *     deal from outreach → replied.
+ *   - For each IG inbound, fetch the contact, extract the IG handle,
+ *     match to a CrateHQ artist, store as a conversation, advance any
+ *     matching deal from outreach → replied.
  *
  * Auth: shared secret in `GHL_WEBHOOK_SECRET` env, sent as `x-webhook-secret`
  * header. Configure in the marketplace app's webhook settings.
  *
- * TODO(post-MVP): upgrade to GHL's HMAC signature verification (x-wh-signature
+ * TODO(post-MVP): upgrade to HMAC signature verification (x-wh-signature
  * with public key) once the marketplace app is registered.
  */
 
@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
   try {
     const expectedSecret = process.env.GHL_WEBHOOK_SECRET
     if (!expectedSecret) {
-      logger.error('[Webhook GHL] GHL_WEBHOOK_SECRET not configured')
+      logger.error('[Webhook Inbox] GHL_WEBHOOK_SECRET not configured')
       return NextResponse.json({ error: 'Server not configured' }, { status: 500 })
     }
     const providedSecret = request.headers.get('x-webhook-secret')
@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
     const messageType = body.messageType as string | undefined
     const locationId = body.locationId as string | undefined
     const contactId = body.contactId as string | undefined
-    const conversationIdGhl = body.conversationId as string | undefined
+    const conversationIdExt = body.conversationId as string | undefined
     const messageId = (body.messageId ?? body.id) as string | undefined
     const messageText = (body.body ?? body.message ?? '') as string
     const dateAdded = body.dateAdded as string | undefined
@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
     }
 
     if (!locationId || !contactId || !messageId) {
-      logger.warn('[Webhook GHL] Missing required fields', {
+      logger.warn('[Webhook Inbox] Missing required fields', {
         hasLocationId: !!locationId,
         hasContactId: !!contactId,
         hasMessageId: !!messageId,
@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
 
     const supabase = createServiceClient()
 
-    // Map GHL location → ig_account
+    // Map marketplace location → ig_account
     const { data: igAccount, error: accountError } = await supabase
       .from('ig_accounts')
       .select('id, assigned_scout_id, is_active')
@@ -79,18 +79,18 @@ export async function POST(request: NextRequest) {
       .maybeSingle()
 
     if (accountError) {
-      logger.error('[Webhook GHL] ig_accounts lookup failed:', accountError)
+      logger.error('[Webhook Inbox] ig_accounts lookup failed:', accountError)
       return NextResponse.json({ error: 'Account lookup failed' }, { status: 500 })
     }
 
     if (!igAccount) {
       // Not an error — likely a non-CrateHQ sub-account in the same agency
-      logger.info('[Webhook GHL] No ig_account for locationId', { locationId })
+      logger.info('[Webhook Inbox] No ig_account for locationId', { locationId })
       return NextResponse.json({ received: true, ignored: 'unknown_location' })
     }
 
-    // Dedup by GHL message ID
-    const externalId = `ghl_${messageId}`
+    // Dedup by external message ID
+    const externalId = `inbox_${messageId}`
     const { data: existing } = await supabase
       .from('conversations')
       .select('id')
@@ -105,7 +105,7 @@ export async function POST(request: NextRequest) {
       })
     }
 
-    // Fetch GHL contact to extract IG handle for artist matching
+    // Fetch contact to extract IG handle for artist matching
     let igHandle: string | null = null
     let senderName: string | null = null
     const ghlClient = await getGHLClient(supabase, igAccount.id)
@@ -117,7 +117,7 @@ export async function POST(request: NextRequest) {
         senderName = contact.fullName ?? (composedName.length > 0 ? composedName : null)
       }
     } else {
-      logger.warn('[Webhook GHL] No GHL client for ig_account (PIT not configured?)', {
+      logger.warn('[Webhook Inbox] No client for ig_account (PIT not configured?)', {
         igAccountId: igAccount.id,
       })
     }
@@ -142,14 +142,14 @@ export async function POST(request: NextRequest) {
         channel: 'instagram',
         direction: 'inbound',
         message_text: messageText,
-        sender: igHandle ?? senderName ?? `ghl_contact_${contactId}`,
+        sender: igHandle ?? senderName ?? `contact_${contactId}`,
         ig_account_id: igAccount.id,
         external_id: externalId,
         metadata: {
-          source: 'ghl_webhook',
+          source: 'inbox_webhook',
           ghl_location_id: locationId,
           ghl_contact_id: contactId,
-          ghl_conversation_id: conversationIdGhl ?? null,
+          ghl_conversation_id: conversationIdExt ?? null,
           ghl_message_id: messageId,
           sender_name: senderName,
           date_added: dateAdded ?? null,
@@ -161,7 +161,7 @@ export async function POST(request: NextRequest) {
       .single()
 
     if (insertError) {
-      logger.error('[Webhook GHL] conversations insert failed:', insertError)
+      logger.error('[Webhook Inbox] conversations insert failed:', insertError)
       return NextResponse.json({ error: 'Failed to store message' }, { status: 500 })
     }
 
@@ -180,7 +180,7 @@ export async function POST(request: NextRequest) {
           .update({ stage: 'replied', stage_changed_at: new Date().toISOString() })
           .in('id', dealIds)
         if (stageErr) {
-          logger.warn('[Webhook GHL] deal stage update failed:', stageErr)
+          logger.warn('[Webhook Inbox] deal stage update failed:', stageErr)
         }
       }
     }
@@ -194,7 +194,7 @@ export async function POST(request: NextRequest) {
       ig_handle_extracted: igHandle,
     })
   } catch (error) {
-    logger.error('[Webhook GHL] Unhandled error:', error)
+    logger.error('[Webhook Inbox] Unhandled error:', error)
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }
