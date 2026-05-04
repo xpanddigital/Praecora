@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { createServiceClient } from '@/lib/supabase/service'
+import { getGHLClient } from '@/lib/ghl/client'
+import { sendInstagramMessage } from '@/lib/ghl/conversations'
 import { checkRateLimit, rateLimitKey, RATE_LIMITS } from '@/lib/rate-limit'
 import { logger } from '@/lib/logger'
 
@@ -50,18 +52,35 @@ export async function POST(request: NextRequest) {
   }
 }
 
+/**
+ * Routing logic:
+ *   1. Look up most recent inbound IG conversation (same as before)
+ *   2. If `metadata.ghl_contact_id` present AND ig_account has GHL config:
+ *        → Send via GHL Conversations API (Meta 24h window applies)
+ *   3. Else: fall back to legacy queue (`pending_outbound_messages`) for
+ *      out-of-band manual delivery (VA on cloud phone, or accounts pre-GHL)
+ *
+ * The webhook at /api/webhooks/ghl-conversations is what populates
+ * `metadata.ghl_contact_id` on inbound conversations, so any reply to a
+ * GHL-routed inbound automatically goes back via GHL.
+ */
 async function handleInstagramSend(
   supabase: any,
   params: { artist_id?: string; thread_key?: string; message_text: string; scout_id: string }
 ) {
-  // We can resolve the IG thread either by artist_id (preferred) or by thread_key (ig_thread_id)
-  let lastInbound: { ig_account_id: string | null; ig_thread_id: string | null; artist_id: string | null } | null = null
+  // Resolve the IG thread either by artist_id (preferred) or by thread_key
+  let lastInbound: {
+    ig_account_id: string | null
+    ig_thread_id: string | null
+    artist_id: string | null
+    metadata: Record<string, any> | null
+  } | null = null
   let lookupError: any = null
 
   if (params.artist_id) {
     const { data, error } = await supabase
       .from('conversations')
-      .select('ig_account_id, ig_thread_id, artist_id')
+      .select('ig_account_id, ig_thread_id, artist_id, metadata')
       .eq('artist_id', params.artist_id)
       .eq('channel', 'instagram')
       .eq('direction', 'inbound')
@@ -73,7 +92,7 @@ async function handleInstagramSend(
   } else if (params.thread_key) {
     const { data, error } = await supabase
       .from('conversations')
-      .select('ig_account_id, ig_thread_id, artist_id')
+      .select('ig_account_id, ig_thread_id, artist_id, metadata')
       .eq('ig_thread_id', params.thread_key)
       .eq('channel', 'instagram')
       .eq('direction', 'inbound')
@@ -89,14 +108,88 @@ async function handleInstagramSend(
     return NextResponse.json({ error: 'Failed to look up conversation thread' }, { status: 500 })
   }
 
-  if (!lastInbound || !lastInbound.ig_account_id || !lastInbound.ig_thread_id) {
+  if (!lastInbound || !lastInbound.ig_account_id) {
     return NextResponse.json(
       { error: 'No Instagram conversation thread found for this artist. The artist must message first.' },
       { status: 404 }
     )
   }
 
-  // 1) Queue the outbound message for the DM agent to send
+  const ghlContactId = lastInbound.metadata?.ghl_contact_id as string | undefined
+
+  // ── Path A: GHL Conversations API (preferred when contact is known to GHL) ──
+  if (ghlContactId) {
+    const ghlClient = await getGHLClient(supabase, lastInbound.ig_account_id)
+    if (ghlClient) {
+      try {
+        const sendResult = await sendInstagramMessage(ghlClient, {
+          contactId: ghlContactId,
+          message: params.message_text,
+        })
+
+        const { data: conversation, error: convoError } = await supabase
+          .from('conversations')
+          .insert({
+            artist_id: params.artist_id || lastInbound.artist_id || null,
+            channel: 'instagram',
+            direction: 'outbound',
+            message_text: params.message_text,
+            sender: null,
+            ig_account_id: lastInbound.ig_account_id,
+            ig_thread_id: lastInbound.ig_thread_id,
+            external_id: sendResult.messageId ? `ghl_${sendResult.messageId}` : null,
+            scout_id: params.scout_id,
+            metadata: {
+              source: 'ghl_send',
+              ghl_contact_id: ghlContactId,
+              ghl_message_id: sendResult.messageId || null,
+              ghl_conversation_id: sendResult.conversationId || null,
+            },
+            read: true,
+          })
+          .select('id')
+          .single()
+
+        if (convoError) {
+          logger.error('[Messages/Send] GHL conversation insert error:', convoError)
+          return NextResponse.json(
+            { error: 'Sent via GHL but failed to save conversation' },
+            { status: 500 }
+          )
+        }
+
+        return NextResponse.json({
+          sent: true,
+          channel: 'instagram',
+          via: 'ghl',
+          ghl_message_id: sendResult.messageId || null,
+          conversation_id: conversation.id,
+        })
+      } catch (sendError) {
+        const errMsg = sendError instanceof Error ? sendError.message : String(sendError)
+        logger.error('[Messages/Send] GHL send failed:', errMsg)
+        // Don't auto-fallback — likely 24h window expired and we want the
+        // scout to know so they can route to VA worklist explicitly.
+        return NextResponse.json(
+          {
+            error: `GHL send failed: ${errMsg}`,
+            hint: 'Likely outside Meta\'s 24h reply window. Escalate to VA worklist for manual send.',
+            via: 'ghl',
+          },
+          { status: 502 }
+        )
+      }
+    }
+  }
+
+  // ── Path B: Legacy queue (fallback for accounts without GHL config) ──
+  if (!lastInbound.ig_thread_id) {
+    return NextResponse.json(
+      { error: 'No GHL contact and no thread ID — cannot route this message.' },
+      { status: 400 }
+    )
+  }
+
   const { data: queued, error: queueError } = await supabase
     .from('pending_outbound_messages')
     .insert({
@@ -115,7 +208,6 @@ async function handleInstagramSend(
     return NextResponse.json({ error: 'Failed to queue Instagram message' }, { status: 500 })
   }
 
-  // 2) Save an outbound Instagram conversation immediately so the UI can render it
   const { data: conversation, error: convoError } = await supabase
     .from('conversations')
     .insert({
@@ -127,6 +219,7 @@ async function handleInstagramSend(
       ig_thread_id: lastInbound.ig_thread_id,
       scout_id: params.scout_id,
       metadata: {
+        source: 'queue_fallback',
         pending_message_id: queued.id,
       },
       read: true,
@@ -142,10 +235,10 @@ async function handleInstagramSend(
     )
   }
 
-  // 3) Return success so the UI can show the message immediately
   return NextResponse.json({
     sent: true,
     channel: 'instagram',
+    via: 'queue',
     queued: true,
     pending_message_id: queued.id,
     conversation_id: conversation.id,
