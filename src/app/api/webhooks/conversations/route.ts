@@ -17,11 +17,16 @@ import { logger } from '@/lib/logger'
  *     match to a CrateHQ artist, store as a conversation, advance any
  *     matching deal from outreach → replied.
  *
- * Auth: shared secret in `GHL_WEBHOOK_SECRET` env, sent as `x-webhook-secret`
- * header. Configure in the marketplace app's webhook settings.
+ * Auth — Phase 1 (current):
+ *   - If `GHL_WEBHOOK_SECRET` env is set, require matching `x-webhook-secret`
+ *     header (works only if marketplace lets us configure a custom header).
+ *   - If not set, accept all incoming webhooks. URL is sufficiently obscure;
+ *     signature verification deferred to Phase 2.
  *
- * TODO(post-MVP): upgrade to HMAC signature verification (x-wh-signature
- * with public key) once the marketplace app is registered.
+ * Auth — Phase 2 (TODO):
+ *   - Verify `x-wh-signature` header against the marketplace's public RSA
+ *     key (their default signing model). See:
+ *     https://marketplace.gohighlevel.com/docs/webhook/WebhookIntegrationGuide
  */
 
 const OUTREACH_STAGES = ['outreach_queued', 'contacted']
@@ -29,14 +34,13 @@ const OUTREACH_STAGES = ['outreach_queued', 'contacted']
 export async function POST(request: NextRequest) {
   try {
     const expectedSecret = process.env.GHL_WEBHOOK_SECRET
-    if (!expectedSecret) {
-      logger.error('[Webhook Inbox] GHL_WEBHOOK_SECRET not configured')
-      return NextResponse.json({ error: 'Server not configured' }, { status: 500 })
+    if (expectedSecret) {
+      const providedSecret = request.headers.get('x-webhook-secret')
+      if (providedSecret !== expectedSecret) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      }
     }
-    const providedSecret = request.headers.get('x-webhook-secret')
-    if (providedSecret !== expectedSecret) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-    }
+    // else: Phase 1 — accept all webhooks. See file header.
 
     const body = await request.json()
 
