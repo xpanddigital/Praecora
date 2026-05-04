@@ -3,18 +3,19 @@ import { createServiceClient } from '@/lib/supabase/service'
 import { logger } from '@/lib/logger'
 
 /**
- * GHL OAuth callback — receives the install redirect after a sub-account
- * authorizes the CrateHQ marketplace app.
+ * Marketplace OAuth callback — receives the install redirect after a
+ * sub-account authorizes the CrateHQ app.
  *
  * Phase 1 (current): logs the install attempt so we have a record, but does
- * NOT exchange the auth code for tokens. We use Private Integration Tokens
- * (PITs) for outbound API calls and webhooks fire independently of OAuth
- * tokens, so the install completes successfully without token exchange.
+ * NOT exchange the auth code for tokens. Outbound API calls use Private
+ * Integration Tokens (PITs); webhooks fire independently of OAuth tokens, so
+ * the install completes successfully without token exchange.
  *
- * Phase 2 (alias generator sprint): exchange code for tokens, store per-location,
- * use agency-token-to-location-token flow for sub-account-scoped API calls.
+ * Phase 2 (alias generator sprint): exchange code for tokens, store per
+ * location, use agency-token-to-location-token flow for sub-account-scoped
+ * provisioning calls.
  *
- * GHL sends:
+ * Callback querystring contains:
  *   ?code=<auth_code>&locationId=<loc>&companyId=<company>&approvalState=<state>
  */
 export async function GET(request: NextRequest) {
@@ -26,7 +27,7 @@ export async function GET(request: NextRequest) {
     const error = request.nextUrl.searchParams.get('error')
 
     if (error) {
-      logger.warn('[GHL OAuth] Install denied or failed', { error, locationId })
+      logger.warn('[Install OAuth] Install denied or failed', { error, locationId })
       return successPage(`Install was not completed: ${error}`, false)
     }
 
@@ -34,29 +35,25 @@ export async function GET(request: NextRequest) {
       return successPage('Missing auth code in callback URL.', false)
     }
 
-    // Phase 1: just log the install. Token exchange deferred to Phase 2.
-    logger.info('[GHL OAuth] Install received', {
+    logger.info('[Install OAuth] Install received', {
       locationId,
       companyId,
       approvalState,
       codePreview: code.slice(0, 8) + '...',
     })
 
-    // Best-effort record the install in a simple log table so we can audit.
-    // If the table doesn't exist, swallow the error silently — the install
-    // itself is still valid because GHL has marked the app as installed.
+    // Best-effort install audit log; non-fatal if the table is absent.
     try {
       const supabase = createServiceClient()
-      await supabase.from('ghl_installs').insert({
+      await supabase.from('marketplace_installs').insert({
         location_id: locationId,
         company_id: companyId,
         approval_state: approvalState,
         auth_code_preview: code.slice(0, 12),
         installed_at: new Date().toISOString(),
       })
-    } catch (e) {
-      // Table likely doesn't exist yet — non-fatal
-      logger.info('[GHL OAuth] ghl_installs table not present, skipping install log')
+    } catch {
+      logger.info('[Install OAuth] marketplace_installs table not present, skipping log')
     }
 
     return successPage(
@@ -64,12 +61,12 @@ export async function GET(request: NextRequest) {
       true
     )
   } catch (e) {
-    logger.error('[GHL OAuth] Unhandled error in callback:', e)
-    return successPage('Something went wrong, but the install may still have completed. Check GHL.', false)
+    logger.error('[Install OAuth] Unhandled error in callback:', e)
+    return successPage('Something went wrong, but the install may still have completed.', false)
   }
 }
 
-// POST is sometimes used for OAuth callbacks too — accept both
+// Some marketplaces POST to the callback; accept both
 export const POST = GET
 
 function successPage(message: string, ok: boolean): NextResponse {
