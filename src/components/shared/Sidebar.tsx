@@ -47,6 +47,7 @@ const navigation = [
 
 const adminNavigation = [
   { name: 'Outreach Queue', href: '/admin/outreach-queue', icon: SendIcon },
+  { name: 'VA Worklist', href: '/admin/va-worklist', icon: ClipboardList },
   { name: 'Account Identities', href: '/admin/identities', icon: Users },
   { name: 'Content Studio', href: '/admin/studio', icon: Sparkles },
   { name: 'Content Calendar', href: '/admin/calendar', icon: Calendar },
