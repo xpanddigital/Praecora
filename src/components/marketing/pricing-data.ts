@@ -10,6 +10,9 @@ export type Tier = {
   igAccounts: number
   dmsPerDay: number
   dmsPerMonth: number
+  emailsPerDay: number
+  emailsPerMonth: number
+  totalTouchesPerMonth: number
   expectedRepliesMo: string
   expectedCallsMo: string
   expectedDealsMo: string
@@ -30,9 +33,12 @@ export const TIERS: Tier[] = [
     igAccounts: 1,
     dmsPerDay: 20,
     dmsPerMonth: 440,
-    expectedRepliesMo: '~44',
-    expectedCallsMo: '~3–9',
-    expectedDealsMo: '1–2',
+    emailsPerDay: 100,
+    emailsPerMonth: 2200,
+    totalTouchesPerMonth: 2640,
+    expectedRepliesMo: '~80–130',
+    expectedCallsMo: '~6–18',
+    expectedDealsMo: '1–3',
     ctaLabel: 'Start with Starter',
     ctaHref: '/checkout/starter',
   },
@@ -48,9 +54,12 @@ export const TIERS: Tier[] = [
     igAccounts: 3,
     dmsPerDay: 60,
     dmsPerMonth: 1320,
-    expectedRepliesMo: '~132',
-    expectedCallsMo: '~9–27',
-    expectedDealsMo: '2–6',
+    emailsPerDay: 250,
+    emailsPerMonth: 5500,
+    totalTouchesPerMonth: 6820,
+    expectedRepliesMo: '~200–340',
+    expectedCallsMo: '~15–45',
+    expectedDealsMo: '3–8',
     ctaLabel: 'Start with Growth',
     ctaHref: '/checkout/growth',
     highlight: true,
@@ -67,9 +76,12 @@ export const TIERS: Tier[] = [
     igAccounts: 5,
     dmsPerDay: 100,
     dmsPerMonth: 2200,
-    expectedRepliesMo: '~220',
-    expectedCallsMo: '~15–45',
-    expectedDealsMo: '3–10',
+    emailsPerDay: 400,
+    emailsPerMonth: 8800,
+    totalTouchesPerMonth: 11000,
+    expectedRepliesMo: '~330–550',
+    expectedCallsMo: '~25–75',
+    expectedDealsMo: '5–14',
     ctaLabel: 'Start with Pro',
     ctaHref: '/checkout/pro',
   },
@@ -84,9 +96,12 @@ export const TIERS: Tier[] = [
     igAccounts: 7,
     dmsPerDay: 140,
     dmsPerMonth: 3080,
-    expectedRepliesMo: '~308',
-    expectedCallsMo: '~21–63',
-    expectedDealsMo: '5–15',
+    emailsPerDay: 600,
+    emailsPerMonth: 13200,
+    totalTouchesPerMonth: 16280,
+    expectedRepliesMo: '~490–820',
+    expectedCallsMo: '~40–110',
+    expectedDealsMo: '8–20',
     ctaLabel: 'Talk to us',
     ctaHref: '/demo?tier=whale',
   },

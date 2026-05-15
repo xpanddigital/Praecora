@@ -10,25 +10,24 @@ export const metadata = {
 export default function DemoPage() {
   return (
     <>
-      <section className="border-b border-border/40 px-4 pt-16 pb-12 md:px-6 md:pt-24 md:pb-16">
+      <section className="marketing-hero-bg px-4 pt-20 pb-12 md:px-6 md:pt-28 md:pb-16">
         <div className="mx-auto w-full max-w-3xl text-center">
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
             Demo
           </p>
-          <h1 className="font-[var(--font-heading)] text-5xl italic leading-tight md:text-6xl">
+          <h1 className="text-balance text-5xl font-bold tracking-tight text-neutral-950 md:text-7xl">
             See it live. 20 minutes. No slides.
           </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
+          <p className="mx-auto mt-6 max-w-2xl text-lg text-neutral-600">
             We'll walk through a real (anonymized) scout's inbox so you can see exactly
             what your day-to-day looks like inside CrateHQ.
           </p>
         </div>
       </section>
 
-      {/* WHAT TO EXPECT */}
-      <section className="px-4 py-16 md:px-6 md:py-20">
+      <section className="border-t border-black/5 bg-white px-4 py-16 md:px-6 md:py-20">
         <div className="mx-auto w-full max-w-4xl">
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid gap-8 md:grid-cols-3">
             {[
               {
                 icon: Eye,
@@ -48,15 +47,12 @@ export default function DemoPage() {
             ].map((item) => {
               const Icon = item.icon
               return (
-                <div
-                  key={item.title}
-                  className="rounded-xl border border-border/40 bg-card p-6"
-                >
-                  <Icon className="h-6 w-6 text-primary" />
-                  <h3 className="mt-4 text-base font-semibold text-foreground">
+                <div key={item.title}>
+                  <Icon className="h-6 w-6 text-neutral-950" />
+                  <h3 className="mt-4 text-base font-semibold text-neutral-950">
                     {item.title}
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  <p className="mt-2 text-sm leading-relaxed text-neutral-600">
                     {item.body}
                   </p>
                 </div>
@@ -66,27 +62,27 @@ export default function DemoPage() {
         </div>
       </section>
 
-      {/* CALENDAR EMBED PLACEHOLDER */}
-      <section className="border-t border-border/40 bg-card/20 px-4 py-16 md:px-6 md:py-20">
+      {/* CALENDAR PLACEHOLDER */}
+      <section className="border-t border-black/5 px-4 py-16 md:px-6 md:py-20">
         <div className="mx-auto w-full max-w-3xl text-center">
-          <h2 className="font-[var(--font-heading)] text-3xl italic md:text-4xl">
+          <h2 className="text-balance text-3xl font-bold tracking-tight text-neutral-950 md:text-4xl">
             Pick a time
           </h2>
-          <p className="mt-4 text-sm text-muted-foreground">
+          <p className="mt-4 text-sm text-neutral-500">
             (Calendar embed loads here once configured.)
           </p>
 
-          <div className="mx-auto mt-10 max-w-md rounded-xl border border-dashed border-border/60 bg-card p-12">
-            <Calendar className="mx-auto h-10 w-10 text-muted-foreground" />
-            <p className="mt-4 text-sm font-medium text-foreground">
+          <div className="mx-auto mt-10 max-w-md rounded-xl border border-dashed border-neutral-300 bg-white p-12">
+            <Calendar className="mx-auto h-10 w-10 text-neutral-400" />
+            <p className="mt-4 text-sm font-medium text-neutral-950">
               Demo booking integration coming soon.
             </p>
-            <p className="mt-2 text-xs text-muted-foreground">
+            <p className="mt-2 text-xs text-neutral-500">
               In the meantime, email us directly to schedule.
             </p>
             <a
               href="mailto:demo@cratehq.io?subject=CrateHQ%20Demo%20Request"
-              className="mt-6 inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+              className="mt-6 inline-flex items-center gap-2 rounded-lg bg-neutral-950 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-neutral-800"
             >
               Email to schedule <ArrowRight className="h-4 w-4" />
             </a>
@@ -94,15 +90,12 @@ export default function DemoPage() {
         </div>
       </section>
 
-      {/* SECONDARY CTA */}
-      <section className="border-t border-border/40 px-4 py-16 md:px-6">
+      <section className="border-t border-black/5 bg-white px-4 py-16 md:px-6">
         <div className="mx-auto w-full max-w-3xl text-center">
-          <p className="text-sm text-muted-foreground">
-            Already know what you need?
-          </p>
+          <p className="text-sm text-neutral-500">Already know what you need?</p>
           <Link
             href="/pricing"
-            className="mt-4 inline-flex items-center gap-2 text-base font-medium text-primary hover:underline"
+            className="mt-4 inline-flex items-center gap-2 text-base font-medium text-neutral-950 hover:underline"
           >
             Skip the call and pick a tier <ArrowRight className="h-4 w-4" />
           </Link>

@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { Check, Minus } from 'lucide-react'
-import { cn } from '@/lib/utils'
 import { TIERS, type Tier } from './pricing-data'
 
 export { TIERS, type Tier }
@@ -15,27 +14,36 @@ const ROWS: Row[] = [
   // Best for
   { label: 'Best for', values: TIERS.map((t) => t.bestFor) },
 
-  // Volume group
-  { label: 'OUTREACH VOLUME', values: ['', '', '', ''], group: 'header' },
-  { label: 'Active outreach personas', values: TIERS.map((t) => String(t.igAccounts)) },
-  { label: 'Cold DMs / day', values: TIERS.map((t) => String(t.dmsPerDay)) },
-  { label: 'Cold DMs / month', values: TIERS.map((t) => `~${t.dmsPerMonth.toLocaleString()}`) },
-  { label: 'Expected replies / month', values: TIERS.map((t) => t.expectedRepliesMo) },
-  { label: 'Expected calls booked / month', values: TIERS.map((t) => t.expectedCallsMo) },
-  { label: 'Expected deals / month (typical)', values: TIERS.map((t) => t.expectedDealsMo) },
+  // Volume group — INSTAGRAM
+  { label: 'INSTAGRAM OUTREACH', values: ['', '', '', ''], group: 'header' },
+  { label: 'IG aliases (active personas)', values: TIERS.map((t) => String(t.igAccounts)) },
+  { label: 'IG cold DMs / day', values: TIERS.map((t) => String(t.dmsPerDay)) },
+  { label: 'IG cold DMs / month', values: TIERS.map((t) => `~${t.dmsPerMonth.toLocaleString()}`) },
+
+  // Volume group — EMAIL
+  { label: 'EMAIL OUTREACH', values: ['', '', '', ''], group: 'header' },
+  { label: 'Cold emails / day', values: TIERS.map((t) => String(t.emailsPerDay)) },
+  { label: 'Cold emails / month', values: TIERS.map((t) => `~${t.emailsPerMonth.toLocaleString()}`) },
+  { label: 'Sender domains warmed', values: TIERS.map((t) => t.id === 'starter' ? '1' : t.id === 'growth' ? '2' : t.id === 'pro' ? '3' : '4') },
+
+  // Combined outcomes
+  { label: 'EXPECTED OUTCOMES (typical)', values: ['', '', '', ''], group: 'header' },
+  { label: 'Total touches / month', values: TIERS.map((t) => `~${t.totalTouchesPerMonth.toLocaleString()}`) },
+  { label: 'Replies / month', values: TIERS.map((t) => t.expectedRepliesMo) },
+  { label: 'Calls booked / month', values: TIERS.map((t) => t.expectedCallsMo) },
+  { label: 'Deals / month', values: TIERS.map((t) => t.expectedDealsMo) },
 
   // Platform
   { label: 'PLATFORM', values: ['', '', '', ''], group: 'header' },
   { label: 'CrateHQ dashboard (CRM, pipeline, deals)', values: [true, true, true, true] },
   { label: 'Artist database + auto-research', values: [true, true, true, true] },
   { label: 'Multi-channel unified inbox', values: [true, true, true, true] },
-  { label: 'Email outreach campaigns', values: [true, true, true, true] },
   { label: 'Analytics + reporting', values: [true, true, true, true] },
   { label: 'Mobile-friendly inbox', values: [true, true, true, true] },
 
   // AI Tools
   { label: 'AI TOOLS', values: ['', '', '', ''], group: 'header' },
-  { label: 'AI cold opener drafter', values: [true, true, true, true] },
+  { label: 'AI cold opener drafter (IG + email)', values: [true, true, true, true] },
   { label: 'AI reply classifier (auto-triage)', values: [true, true, true, true] },
   { label: 'AI reply suggester (1-click send)', values: [true, true, true, true] },
   { label: 'AI artist enrichment', values: [true, true, true, true] },
@@ -54,6 +62,7 @@ const ROWS: Row[] = [
   { label: 'ONBOARDING (one-time)', values: ['', '', '', ''], group: 'header' },
   { label: 'Account preparation', values: [true, true, true, true] },
   { label: 'Persona + voice configuration', values: [true, true, true, true] },
+  { label: 'Email sender domains setup + warm-up', values: [true, true, true, true] },
   { label: 'Initial content seeding', values: [true, true, true, true] },
   { label: 'Onboarding timeline', values: ['~4 weeks', '~4 weeks', '~4 weeks', '~4 weeks'] },
 ]
@@ -64,51 +73,48 @@ function formatPrice(n: number) {
 
 function Cell({ value }: { value: string | boolean }) {
   if (value === true) {
-    return <Check className="h-4 w-4 text-primary" aria-label="Included" />
+    return <Check className="h-4 w-4 text-neutral-950" aria-label="Included" />
   }
   if (value === false) {
-    return <Minus className="h-4 w-4 text-muted-foreground/40" aria-label="Not included" />
+    return <Minus className="h-4 w-4 text-neutral-300" aria-label="Not included" />
   }
-  return <span className="text-sm text-foreground">{value}</span>
+  return <span className="text-sm text-neutral-700">{value}</span>
 }
 
 export function PricingTable({ showRoiBand = true }: { showRoiBand?: boolean }) {
   return (
     <div className="w-full">
-      {/* Tier headers (sticky on scroll for long tables) */}
       <div className="overflow-x-auto">
-        <table className="w-full min-w-[820px] border-separate border-spacing-0">
+        <table className="w-full min-w-[860px] border-separate border-spacing-0">
           <thead>
             <tr>
-              <th className="sticky left-0 w-[260px] bg-background pb-4 pl-4 text-left align-bottom"></th>
+              <th className="sticky left-0 w-[280px] bg-[#fafaf9] pb-4 pl-4 text-left align-bottom"></th>
               {TIERS.map((t) => (
                 <th
                   key={t.id}
-                  className={cn(
-                    'relative w-[160px] border-x border-t border-border/40 bg-card px-4 pb-4 pt-6 text-left align-top first:rounded-tl-xl last:rounded-tr-xl',
-                    t.highlight && 'bg-primary/5 ring-1 ring-inset ring-primary/30'
-                  )}
+                  className={`relative w-[160px] border-x border-t border-black/10 bg-white px-4 pb-5 pt-7 text-left align-top first:rounded-tl-xl last:rounded-tr-xl ${
+                    t.highlight ? 'ring-2 ring-neutral-950 ring-inset' : ''
+                  }`}
                 >
                   {t.badge && (
                     <span
-                      className={cn(
-                        'absolute -top-3 left-4 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider',
+                      className={`absolute -top-3 left-4 rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider ${
                         t.id === 'growth'
-                          ? 'bg-primary text-primary-foreground'
-                          : 'bg-foreground text-background'
-                      )}
+                          ? 'bg-neutral-950 text-white'
+                          : 'bg-[#e8ff47] text-neutral-950'
+                      }`}
                     >
                       ★ {t.badge}
                     </span>
                   )}
-                  <p className="text-base font-semibold text-foreground">{t.name}</p>
-                  <p className="mt-1 text-3xl font-semibold tracking-tight text-foreground">
+                  <p className="text-base font-semibold text-neutral-950">{t.name}</p>
+                  <p className="mt-2 font-mono text-3xl font-medium tracking-tight text-neutral-950">
                     {formatPrice(t.monthly)}
-                    <span className="text-sm font-normal text-muted-foreground">/mo</span>
+                    <span className="font-sans text-sm font-normal text-neutral-500">/mo</span>
                   </p>
-                  <p className="mt-2 text-xs text-muted-foreground">
+                  <p className="mt-2 text-xs text-neutral-500">
                     or {formatPrice(t.annual)}/yr
-                    <span className="ml-1 text-primary">(save 2 mo)</span>
+                    <span className="ml-1 font-medium text-neutral-950">(save 2 mo)</span>
                   </p>
                 </th>
               ))}
@@ -122,7 +128,7 @@ export function PricingTable({ showRoiBand = true }: { showRoiBand?: boolean }) 
                   <tr key={i}>
                     <td
                       colSpan={5}
-                      className="border-x border-border/40 bg-card/50 px-4 pb-2 pt-6 text-[11px] font-semibold uppercase tracking-wider text-primary"
+                      className="border-x border-black/10 bg-neutral-50/50 px-4 pb-2 pt-7 text-[10px] font-semibold uppercase tracking-[0.15em] text-neutral-500"
                     >
                       {row.label}
                     </td>
@@ -130,17 +136,16 @@ export function PricingTable({ showRoiBand = true }: { showRoiBand?: boolean }) 
                 )
               }
               return (
-                <tr key={i} className="group">
-                  <td className="sticky left-0 border-x border-t border-border/40 bg-background px-4 py-3 text-sm text-muted-foreground">
+                <tr key={i}>
+                  <td className="sticky left-0 border-x border-t border-black/10 bg-[#fafaf9] px-4 py-3 text-sm text-neutral-600">
                     {row.label}
                   </td>
                   {row.values.map((v, j) => (
                     <td
                       key={j}
-                      className={cn(
-                        'border-x border-t border-border/40 bg-card px-4 py-3',
-                        TIERS[j].highlight && 'bg-primary/5'
-                      )}
+                      className={`border-x border-t border-black/10 bg-white px-4 py-3 ${
+                        TIERS[j].highlight ? 'bg-neutral-50/40' : ''
+                      }`}
                     >
                       <Cell value={v} />
                     </td>
@@ -149,44 +154,45 @@ export function PricingTable({ showRoiBand = true }: { showRoiBand?: boolean }) 
               )
             })}
 
-            {/* Onboarding row (special) */}
+            {/* Onboarding row */}
             <tr>
-              <td className="sticky left-0 border-x border-t border-border/40 bg-background px-4 py-4 text-sm font-medium text-foreground">
+              <td className="sticky left-0 border-x border-t border-black/10 bg-[#fafaf9] px-4 py-4 text-sm font-medium text-neutral-950">
                 Onboarding fee (one-time)
               </td>
               {TIERS.map((t) => (
                 <td
                   key={t.id}
-                  className={cn(
-                    'border-x border-t border-border/40 bg-card px-4 py-4',
-                    t.highlight && 'bg-primary/5'
-                  )}
+                  className={`border-x border-t border-black/10 bg-white px-4 py-4 ${
+                    t.highlight ? 'bg-neutral-50/40' : ''
+                  }`}
                 >
                   <div>
-                    <span className="text-base font-semibold text-foreground">
+                    <span className="font-mono text-base font-medium text-neutral-950">
                       {formatPrice(t.onboarding)}
                     </span>
-                    <span className="ml-2 text-xs text-muted-foreground line-through">
+                    <span className="ml-2 text-xs text-neutral-400 line-through">
                       {formatPrice(t.onboardingOriginal)}
                     </span>
                   </div>
-                  <p className="mt-1 text-[11px] text-primary">20% off — Onboarding pricing</p>
+                  <p className="mt-1 text-[11px] font-medium text-neutral-700">
+                    20% off — Onboarding pricing
+                  </p>
                 </td>
               ))}
             </tr>
 
             {/* Day 0 cost */}
             <tr>
-              <td className="sticky left-0 border-x border-t border-border/40 bg-background px-4 py-3 text-sm font-medium text-foreground">
-                Day 0 cost <span className="text-xs text-muted-foreground">(onboarding only)</span>
+              <td className="sticky left-0 border-x border-t border-black/10 bg-[#fafaf9] px-4 py-3 text-sm font-medium text-neutral-950">
+                Day 0 cost{' '}
+                <span className="text-xs text-neutral-500">(onboarding only)</span>
               </td>
               {TIERS.map((t) => (
                 <td
                   key={t.id}
-                  className={cn(
-                    'border-x border-t border-border/40 bg-card px-4 py-3 text-base font-semibold text-foreground',
-                    t.highlight && 'bg-primary/5'
-                  )}
+                  className={`border-x border-t border-black/10 bg-white px-4 py-3 font-mono text-base font-medium text-neutral-950 ${
+                    t.highlight ? 'bg-neutral-50/40' : ''
+                  }`}
                 >
                   {formatPrice(t.onboarding)}
                 </td>
@@ -195,28 +201,29 @@ export function PricingTable({ showRoiBand = true }: { showRoiBand?: boolean }) 
 
             {/* Monthly begins */}
             <tr>
-              <td className="sticky left-0 border-x border-t border-border/40 bg-background px-4 py-3 text-sm font-medium text-foreground">
-                Monthly subscription <span className="text-xs text-muted-foreground">(begins ~Day 28)</span>
+              <td className="sticky left-0 border-x border-t border-black/10 bg-[#fafaf9] px-4 py-3 text-sm font-medium text-neutral-950">
+                Monthly subscription{' '}
+                <span className="text-xs text-neutral-500">(begins ~Day 28)</span>
               </td>
               {TIERS.map((t) => (
                 <td
                   key={t.id}
-                  className={cn(
-                    'border-x border-t border-border/40 bg-card px-4 py-3 text-base text-foreground',
-                    t.highlight && 'bg-primary/5'
-                  )}
+                  className={`border-x border-t border-black/10 bg-white px-4 py-3 text-base text-neutral-950 ${
+                    t.highlight ? 'bg-neutral-50/40' : ''
+                  }`}
                 >
-                  {formatPrice(t.monthly)}/mo
+                  <span className="font-mono">{formatPrice(t.monthly)}</span>
+                  <span className="text-sm text-neutral-500">/mo</span>
                 </td>
               ))}
             </tr>
 
-            {/* ROI band */}
+            {/* ROI */}
             {showRoiBand && (
               <tr>
                 <td
                   colSpan={5}
-                  className="border-x border-border/40 bg-card/50 px-4 pb-2 pt-6 text-[11px] font-semibold uppercase tracking-wider text-primary"
+                  className="border-x border-black/10 bg-neutral-50/50 px-4 pb-2 pt-7 text-[10px] font-semibold uppercase tracking-[0.15em] text-neutral-500"
                 >
                   ROI break-even
                 </td>
@@ -224,7 +231,7 @@ export function PricingTable({ showRoiBand = true }: { showRoiBand?: boolean }) 
             )}
             {showRoiBand && (
               <tr>
-                <td className="sticky left-0 border-x border-t border-border/40 bg-background px-4 py-3 text-sm text-muted-foreground">
+                <td className="sticky left-0 border-x border-t border-black/10 bg-[#fafaf9] px-4 py-3 text-sm text-neutral-600">
                   1 small catalog deal pays for…
                 </td>
                 {TIERS.map((t) => {
@@ -232,10 +239,9 @@ export function PricingTable({ showRoiBand = true }: { showRoiBand?: boolean }) 
                   return (
                     <td
                       key={t.id}
-                      className={cn(
-                        'border-x border-t border-border/40 bg-card px-4 py-3 text-sm text-foreground',
-                        t.highlight && 'bg-primary/5'
-                      )}
+                      className={`border-x border-t border-black/10 bg-white px-4 py-3 text-sm text-neutral-950 ${
+                        t.highlight ? 'bg-neutral-50/40' : ''
+                      }`}
                     >
                       {months}+ months
                     </td>
@@ -244,25 +250,23 @@ export function PricingTable({ showRoiBand = true }: { showRoiBand?: boolean }) 
               </tr>
             )}
 
-            {/* CTA row */}
+            {/* CTA */}
             <tr>
-              <td className="sticky left-0 border-x border-b border-border/40 bg-background px-4 py-6 first:rounded-bl-xl"></td>
+              <td className="sticky left-0 border-x border-b border-black/10 bg-[#fafaf9] px-4 py-6 first:rounded-bl-xl"></td>
               {TIERS.map((t) => (
                 <td
                   key={t.id}
-                  className={cn(
-                    'border-x border-b border-border/40 bg-card px-4 py-6 last:rounded-br-xl',
-                    t.highlight && 'bg-primary/5'
-                  )}
+                  className={`border-x border-b border-black/10 bg-white px-4 py-6 last:rounded-br-xl ${
+                    t.highlight ? 'bg-neutral-50/40' : ''
+                  }`}
                 >
                   <Link
                     href={t.ctaHref}
-                    className={cn(
-                      'block w-full rounded-lg px-4 py-2.5 text-center text-sm font-medium transition-opacity hover:opacity-90',
+                    className={`block w-full rounded-lg px-4 py-2.5 text-center text-sm font-medium transition-colors ${
                       t.highlight
-                        ? 'bg-primary text-primary-foreground'
-                        : 'border border-border bg-background text-foreground'
-                    )}
+                        ? 'bg-neutral-950 text-white hover:bg-neutral-800'
+                        : 'border border-neutral-300 bg-white text-neutral-950 hover:bg-neutral-50'
+                    }`}
                   >
                     {t.ctaLabel}
                   </Link>
@@ -274,7 +278,7 @@ export function PricingTable({ showRoiBand = true }: { showRoiBand?: boolean }) 
       </div>
 
       {showRoiBand && (
-        <p className="mt-4 px-2 text-xs text-muted-foreground">
+        <p className="mt-4 px-2 text-xs text-neutral-500">
           ROI assumes one $50,000 catalog deal at 10% commission ($5,000). Most scouts close
           their first deal within 60–90 days of going live.
         </p>
