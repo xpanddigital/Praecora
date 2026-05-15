@@ -23,8 +23,19 @@ const monoFont = DM_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Flank - Music Catalog Deal Flow",
-  description: "Flank — CRM and outreach automation for music catalog financing",
+  title: {
+    default: "CrateHQ — Done-for-you Instagram outreach for music catalog scouts",
+    template: "%s | CrateHQ",
+  },
+  description:
+    "AI-drafted personalized cold openers, smart reply triage, and a unified inbox — fully managed and built to keep your accounts safe.",
+  openGraph: {
+    title: "CrateHQ — Done-for-you Instagram outreach for music catalog scouts",
+    description:
+      "AI-drafted personalized cold openers, smart reply triage, and a unified inbox — fully managed and built to keep your accounts safe.",
+    type: "website",
+    siteName: "CrateHQ",
+  },
 };
 
 export default function RootLayout({
