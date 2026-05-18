@@ -2,9 +2,9 @@ import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 
 export const metadata = {
-  title: 'FAQ — CrateHQ',
+  title: 'FAQ — Praecora',
   description:
-    'Common questions about CrateHQ\'s done-for-you Instagram and email outreach platform for music catalog scouts.',
+    'Common questions about Praecora\'s done-for-you Instagram and email outreach platform for music catalog scouts.',
 }
 
 const FAQ_GROUPS = [
@@ -12,8 +12,8 @@ const FAQ_GROUPS = [
     title: 'The basics',
     items: [
       {
-        q: 'What does CrateHQ actually do?',
-        a: 'We run your Instagram and email outreach end-to-end. AI drafts personalized cold openers based on each artist\'s profile, recent posts, and Spotify catalog. We handle delivery across both channels. Replies route into your CrateHQ inbox. AI classifies them and suggests responses. You reply with one click and book the call.',
+        q: 'What does Praecora actually do?',
+        a: 'We run your Instagram and email outreach end-to-end. AI drafts personalized cold openers based on each artist\'s profile, recent posts, and Spotify catalog. We handle delivery across both channels. Replies route into your Praecora inbox. AI classifies them and suggests responses. You reply with one click and book the call.',
       },
       {
         q: 'Why both Instagram and email?',
@@ -97,7 +97,7 @@ const FAQ_GROUPS = [
     items: [
       {
         q: 'Do I have to manage anything?',
-        a: 'You manage replies (~30 min/day in CrateHQ inbox) and your own deal pipeline. Everything else — outreach, account safety, content, infrastructure — we handle.',
+        a: 'You manage replies (~30 min/day in Praecora inbox) and your own deal pipeline. Everything else — outreach, account safety, content, infrastructure — we handle.',
       },
       {
         q: 'Can I see the platform before I sign up?',
@@ -105,7 +105,7 @@ const FAQ_GROUPS = [
       },
       {
         q: 'Do you integrate with my existing CRM?',
-        a: 'CrateHQ is the CRM — built specifically for music catalog scouts. If you have a separate workflow tool you depend on, talk to us about it on the demo call.',
+        a: 'Praecora is the CRM — built specifically for music catalog scouts. If you have a separate workflow tool you depend on, talk to us about it on the demo call.',
       },
       {
         q: 'Who actually owns the accounts and data?',

@@ -24,17 +24,17 @@ const monoFont = DM_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "CrateHQ — Done-for-you Instagram outreach for music catalog scouts",
-    template: "%s | CrateHQ",
+    default: "Praecora — Done-for-you Instagram outreach for music catalog scouts",
+    template: "%s | Praecora",
   },
   description:
     "AI-drafted personalized cold openers, smart reply triage, and a unified inbox — fully managed and built to keep your accounts safe.",
   openGraph: {
-    title: "CrateHQ — Done-for-you Instagram outreach for music catalog scouts",
+    title: "Praecora — Done-for-you Instagram outreach for music catalog scouts",
     description:
       "AI-drafted personalized cold openers, smart reply triage, and a unified inbox — fully managed and built to keep your accounts safe.",
     type: "website",
-    siteName: "CrateHQ",
+    siteName: "Praecora",
   },
 };
 

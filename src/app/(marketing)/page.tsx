@@ -6,7 +6,7 @@ import { AiDrafterMockup } from '@/components/marketing/AiDrafterMockup'
 import { PipelineMockup } from '@/components/marketing/PipelineMockup'
 
 export const metadata = {
-  title: 'CrateHQ — Done-for-you Instagram + email outreach for music catalog scouts',
+  title: 'Praecora — Done-for-you Instagram + email outreach for music catalog scouts',
   description:
     'AI sends the DMs and the emails. Replies route into one inbox. You close the deals. Built for music catalog financing scouts.',
 }
@@ -266,7 +266,7 @@ export default function MarketingHome() {
               {
                 step: '03',
                 title: 'Close (your part)',
-                body: 'Replies route into your CrateHQ inbox. AI classifies them, suggests responses. You reply with one click and book the call.',
+                body: 'Replies route into your Praecora inbox. AI classifies them, suggests responses. You reply with one click and book the call.',
               },
             ].map((s) => (
               <div key={s.step}>
@@ -380,7 +380,7 @@ export default function MarketingHome() {
                 time: '9:00',
                 meridiem: 'AM',
                 title: 'Morning inbox check',
-                body: 'You open CrateHQ. AI has already classified overnight replies into "interested," "needs response," and "noise." 12 minutes to triage.',
+                body: 'You open Praecora. AI has already classified overnight replies into "interested," "needs response," and "noise." 12 minutes to triage.',
               },
               {
                 time: '11:00',
@@ -470,10 +470,10 @@ export default function MarketingHome() {
             email are the only channels that consistently produce deals. The scouts who
             scale share one playbook. The ones who don't share a different pattern: their
             accounts get banned, their outreach gets flagged, their inboxes turn into
-            chaos. CrateHQ is the platform we wish existed when we started."
+            chaos. Praecora is the platform we wish existed when we started."
           </blockquote>
           <p className="mt-8 text-sm font-medium text-neutral-500">
-            — The CrateHQ team
+            — The Praecora team
           </p>
         </div>
       </section>

@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'Privacy Policy — CrateHQ',
+  title: 'Privacy Policy — Praecora',
 }
 
 export default function PrivacyPage() {
@@ -64,10 +64,10 @@ export default function PrivacyPage() {
             You can export your data, request deletion, or close your account at any
             time. Email{' '}
             <a
-              href="mailto:privacy@cratehq.io"
+              href="mailto:privacy@praecora.com"
               className="font-medium text-neutral-950 underline underline-offset-2 hover:no-underline"
             >
-              privacy@cratehq.io
+              privacy@praecora.com
             </a>
             .
           </p>
@@ -86,10 +86,10 @@ export default function PrivacyPage() {
           <p className="mt-3 text-base leading-relaxed">
             Questions:{' '}
             <a
-              href="mailto:privacy@cratehq.io"
+              href="mailto:privacy@praecora.com"
               className="font-medium text-neutral-950 underline underline-offset-2 hover:no-underline"
             >
-              privacy@cratehq.io
+              privacy@praecora.com
             </a>
           </p>
         </section>

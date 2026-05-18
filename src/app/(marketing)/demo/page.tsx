@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { ArrowRight, Calendar, Eye, MessageSquare } from 'lucide-react'
 
 export const metadata = {
-  title: 'Book a demo — CrateHQ',
+  title: 'Book a demo — Praecora',
   description:
     'See the platform with a real (anonymized) scout\'s inbox. 20 minutes, no slides.',
 }
@@ -20,7 +20,7 @@ export default function DemoPage() {
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-neutral-600">
             We'll walk through a real (anonymized) scout's inbox so you can see exactly
-            what your day-to-day looks like inside CrateHQ.
+            what your day-to-day looks like inside Praecora.
           </p>
         </div>
       </section>
@@ -32,7 +32,7 @@ export default function DemoPage() {
               {
                 icon: Eye,
                 title: 'Live platform tour',
-                body: 'You see the actual CrateHQ inbox, AI reply suggestions, and pipeline. Not screenshots.',
+                body: 'You see the actual Praecora inbox, AI reply suggestions, and pipeline. Not screenshots.',
               },
               {
                 icon: MessageSquare,
@@ -81,7 +81,7 @@ export default function DemoPage() {
               In the meantime, email us directly to schedule.
             </p>
             <a
-              href="mailto:demo@cratehq.io?subject=CrateHQ%20Demo%20Request"
+              href="mailto:demo@praecora.com?subject=Praecora%20Demo%20Request"
               className="mt-6 inline-flex items-center gap-2 rounded-lg bg-neutral-950 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-neutral-800"
             >
               Email to schedule <ArrowRight className="h-4 w-4" />

@@ -20,7 +20,7 @@ export function MarketingHeader() {
           href="/"
           className="text-lg font-bold tracking-tight text-neutral-950"
         >
-          CrateHQ
+          Praecora
         </Link>
 
         {/* Desktop nav */}

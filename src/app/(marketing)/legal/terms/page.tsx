@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'Terms of Service — CrateHQ',
+  title: 'Terms of Service — Praecora',
 }
 
 export default function TermsPage() {
@@ -21,7 +21,7 @@ export default function TermsPage() {
         <section>
           <h2 className="text-xl font-semibold text-neutral-950">The service</h2>
           <p className="mt-3 text-base leading-relaxed">
-            CrateHQ provides done-for-you Instagram and email outreach for music catalog
+            Praecora provides done-for-you Instagram and email outreach for music catalog
             scouts, including platform access, AI-drafted outreach, account management,
             and a unified reply inbox. Specific deliverables vary by tier as described on
             the pricing page.
@@ -45,7 +45,7 @@ export default function TermsPage() {
         <section>
           <h2 className="text-xl font-semibold text-neutral-950">Acceptable use</h2>
           <p className="mt-3 text-base leading-relaxed">
-            CrateHQ is built for legitimate music catalog scouts engaging with artists
+            Praecora is built for legitimate music catalog scouts engaging with artists
             and their representatives in good faith. Misuse — including spam, harassment,
             fraudulent claims, or attempts to circumvent platform safety measures — will
             result in account termination without refund.
@@ -84,7 +84,7 @@ export default function TermsPage() {
         <section>
           <h2 className="text-xl font-semibold text-neutral-950">Liability</h2>
           <p className="mt-3 text-base leading-relaxed">
-            CrateHQ is provided "as is." Our total liability under any claim is limited
+            Praecora is provided "as is." Our total liability under any claim is limited
             to fees paid in the prior 12 months. We are not liable for consequential or
             indirect damages including lost commissions, lost accounts, or business
             disruption.
@@ -104,10 +104,10 @@ export default function TermsPage() {
           <p className="mt-3 text-base leading-relaxed">
             Questions:{' '}
             <a
-              href="mailto:legal@cratehq.io"
+              href="mailto:legal@praecora.com"
               className="font-medium text-neutral-950 underline underline-offset-2 hover:no-underline"
             >
-              legal@cratehq.io
+              legal@praecora.com
             </a>
           </p>
         </section>

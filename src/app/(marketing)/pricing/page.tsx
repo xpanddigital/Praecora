@@ -3,7 +3,7 @@ import { ArrowRight, Check } from 'lucide-react'
 import { PricingTable, TIERS } from '@/components/marketing/PricingTable'
 
 export const metadata = {
-  title: 'Pricing — CrateHQ',
+  title: 'Pricing — Praecora',
   description:
     'Four tiers of done-for-you Instagram and email outreach for music catalog scouts. Pay onboarding upfront. Subscription begins when services go live.',
 }

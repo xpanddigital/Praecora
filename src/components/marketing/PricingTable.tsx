@@ -47,7 +47,7 @@ const ROWS: Row[] = [
   { label: 'Deals / month', values: TIERS.map((t) => t.expectedDealsMo) },
 
   { label: '', values: ['', '', '', ''], group: GROUPS.platform },
-  { label: 'CrateHQ dashboard (CRM, pipeline, deals)', values: [true, true, true, true] },
+  { label: 'Praecora dashboard (CRM, pipeline, deals)', values: [true, true, true, true] },
   { label: 'Artist database + auto-research', values: [true, true, true, true] },
   { label: 'Multi-channel unified inbox', values: [true, true, true, true] },
   { label: 'Analytics + reporting', values: [true, true, true, true] },

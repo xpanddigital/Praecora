@@ -2,9 +2,9 @@ import Link from 'next/link'
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
 
 export const metadata = {
-  title: 'How it works — CrateHQ',
+  title: 'How it works — Praecora',
   description:
-    'A deeper look at how CrateHQ delivers managed Instagram and email outreach for music catalog scouts.',
+    'A deeper look at how Praecora delivers managed Instagram and email outreach for music catalog scouts.',
 }
 
 const TIMELINE = [
@@ -26,17 +26,17 @@ const TIMELINE = [
   {
     week: 'Week 3',
     title: 'Onboarding wrap-up',
-    body: 'Final account warm-up. Quality checks across IG and email. Your CrateHQ inbox is set up and ready. You receive credentials + a recorded walkthrough of your dashboard.',
+    body: 'Final account warm-up. Quality checks across IG and email. Your Praecora inbox is set up and ready. You receive credentials + a recorded walkthrough of your dashboard.',
   },
   {
     week: 'Week 4',
     title: 'Outreach goes live',
-    body: 'Your first cold DMs and emails go out. Your monthly subscription begins billing today. Replies start landing in your CrateHQ inbox within hours.',
+    body: 'Your first cold DMs and emails go out. Your monthly subscription begins billing today. Replies start landing in your Praecora inbox within hours.',
   },
   {
     week: 'Week 5+',
     title: 'Your daily rhythm',
-    body: '~30 min/day in CrateHQ — review AI-classified replies, send AI-suggested responses, book calls. The outreach engine runs on its own.',
+    body: '~30 min/day in Praecora — review AI-classified replies, send AI-suggested responses, book calls. The outreach engine runs on its own.',
   },
 ]
 

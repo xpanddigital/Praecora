@@ -65,7 +65,7 @@ export function UnifiedInboxMockup() {
           <span className="h-2.5 w-2.5 rounded-full bg-yellow-300" />
           <span className="h-2.5 w-2.5 rounded-full bg-green-300" />
         </div>
-        <p className="text-[11px] font-medium text-neutral-500">CrateHQ — Inbox</p>
+        <p className="text-[11px] font-medium text-neutral-500">Praecora — Inbox</p>
         <div className="w-12" />
       </div>
 

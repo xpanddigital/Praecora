@@ -10,7 +10,7 @@ export function MarketingFooter() {
               href="/"
               className="text-lg font-bold tracking-tight text-neutral-950"
             >
-              CrateHQ
+              Praecora
             </Link>
             <p className="mt-4 text-sm leading-relaxed text-neutral-600">
               Done-for-you Instagram and email outreach for music catalog
@@ -103,7 +103,7 @@ export function MarketingFooter() {
 
         <div className="mt-16 border-t border-black/5 pt-6">
           <p className="text-xs text-neutral-500">
-            © {new Date().getFullYear()} CrateHQ. All rights reserved.
+            © {new Date().getFullYear()} Praecora. All rights reserved.
           </p>
         </div>
       </div>
