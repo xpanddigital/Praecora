@@ -7,6 +7,7 @@ import { Menu, X } from 'lucide-react'
 const NAV = [
   { name: 'How it works', href: '/how-it-works' },
   { name: 'Pricing', href: '/pricing' },
+  { name: 'Field guide', href: '/blog' },
   { name: 'FAQ', href: '/faq' },
 ]
 

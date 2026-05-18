@@ -45,6 +45,14 @@ export function MarketingFooter() {
                 </li>
                 <li>
                   <Link
+                    href="/blog"
+                    className="text-neutral-700 transition-colors hover:text-neutral-950"
+                  >
+                    Field guide
+                  </Link>
+                </li>
+                <li>
+                  <Link
                     href="/faq"
                     className="text-neutral-700 transition-colors hover:text-neutral-950"
                   >
