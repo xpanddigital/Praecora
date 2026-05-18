@@ -5,6 +5,7 @@ import { UnifiedInboxMockup } from '@/components/marketing/UnifiedInboxMockup'
 import { AiDrafterMockup } from '@/components/marketing/AiDrafterMockup'
 import { PipelineMockup } from '@/components/marketing/PipelineMockup'
 import { Ornament, Eyebrow } from '@/components/marketing/Ornament'
+import { HeroVideoPlayer } from '@/components/marketing/HeroVideoPlayer'
 
 export const metadata = {
   title: 'Praecora — Outreach that doesn\'t feel like outreach',
@@ -40,21 +41,14 @@ export default function MarketingHome() {
             </div>
           </div>
 
-          {/* Hero narrative video — Anatomy of a Deal */}
+          {/* Hero narrative video — teaser loop, click to play full Anatomy of a Deal */}
           <div className="mx-auto mt-20 max-w-4xl md:mt-24">
-            <div className="marketing-mock-panel overflow-hidden">
-              <video
-                className="block h-auto w-full"
-                src="/videos/anatomy-of-a-deal.mp4"
-                poster="/videos/anatomy-of-a-deal-poster.jpg"
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="metadata"
-                aria-label="Anatomy of a deal — how outreach to deal close looks inside Praecora"
-              />
-            </div>
+            <HeroVideoPlayer
+              teaserSrc="/videos/anatomy-of-a-deal-teaser.mp4"
+              fullSrc="/videos/anatomy-of-a-deal.mp4"
+              posterSrc="/videos/anatomy-of-a-deal-poster.jpg"
+              caption="Watch — Anatomy of a deal"
+            />
           </div>
         </div>
       </section>
