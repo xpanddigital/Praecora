@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { ArrowRight, Calendar, Eye, MessageSquare } from 'lucide-react'
 import { Eyebrow } from '@/components/marketing/Ornament'
+import { HeroVideoPlayer } from '@/components/marketing/HeroVideoPlayer'
 
 export const metadata = {
   title: 'Book a demo — Praecora',
@@ -11,18 +12,45 @@ export const metadata = {
 export default function DemoPage() {
   return (
     <>
-      <section className="marketing-hero-bg px-4 pt-24 pb-16 md:px-6 md:pt-32 md:pb-20">
-        <div className="mx-auto w-full max-w-3xl text-center">
-          <div className="mb-8 flex justify-center">
-            <Eyebrow>Demo</Eyebrow>
+      {/* HERO — split layout: text left, video right */}
+      <section className="marketing-hero-bg px-4 pt-16 pb-20 md:px-6 md:pt-20 md:pb-24 lg:pt-24">
+        <div className="mx-auto w-full max-w-7xl">
+          <div className="grid items-center gap-12 md:grid-cols-2 md:gap-12 lg:gap-16">
+            {/* LEFT — text */}
+            <div className="text-center md:text-left">
+              <div className="mb-6 flex justify-center md:justify-start">
+                <Eyebrow>Demo</Eyebrow>
+              </div>
+              <h1 className="text-balance text-4xl font-bold leading-[1.05] tracking-tight text-[#0f0d08] sm:text-5xl md:text-5xl lg:text-6xl">
+                See it live. 20 minutes. No slides.
+              </h1>
+              <p className="mx-auto mt-6 max-w-xl text-balance text-base leading-relaxed text-neutral-600 md:mx-0 md:mt-8 md:text-lg">
+                We'll walk through a real (anonymized) scout's inbox so you can see exactly
+                what your day-to-day looks like inside Praecora.
+              </p>
+              <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center md:mt-10 md:justify-start">
+                <a
+                  href="mailto:demo@praecora.com?subject=Praecora%20Demo%20Request"
+                  className="cta-primary"
+                >
+                  Email to schedule <ArrowRight className="h-4 w-4" />
+                </a>
+                <Link href="/pricing" className="cta-secondary">
+                  See pricing first
+                </Link>
+              </div>
+            </div>
+
+            {/* RIGHT — Demo Experience video teaser */}
+            <div className="mx-auto w-full max-w-xl md:max-w-none">
+              <HeroVideoPlayer
+                teaserSrc="/videos/demo-experience-teaser.mp4"
+                fullSrc="/videos/demo-experience.mp4"
+                posterSrc="/videos/demo-experience-poster.jpg"
+                caption="Watch — Before your demo"
+              />
+            </div>
           </div>
-          <h1 className="text-balance text-5xl font-bold leading-[1.05] tracking-tight text-[#0f0d08] md:text-7xl">
-            See it live. 20 minutes. No slides.
-          </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-neutral-600">
-            We'll walk through a real (anonymized) scout's inbox so you can see exactly
-            what your day-to-day looks like inside Praecora.
-          </p>
         </div>
       </section>
 

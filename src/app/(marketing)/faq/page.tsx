@@ -11,6 +11,7 @@ export const metadata = {
 const FAQ_GROUPS = [
   {
     title: 'The basics',
+    image: '/images/faq/faq-1-basics.jpg',
     items: [
       {
         q: 'What does Praecora actually do?',
@@ -32,6 +33,7 @@ const FAQ_GROUPS = [
   },
   {
     title: 'Pricing & billing',
+    image: '/images/faq/faq-2-pricing.jpg',
     items: [
       {
         q: 'Why is there an onboarding fee?',
@@ -57,6 +59,7 @@ const FAQ_GROUPS = [
   },
   {
     title: 'Account safety',
+    image: '/images/faq/faq-3-safety.jpg',
     items: [
       {
         q: 'What happens when an Instagram account gets banned?',
@@ -74,6 +77,7 @@ const FAQ_GROUPS = [
   },
   {
     title: 'Volume & results',
+    image: '/images/faq/faq-4-volume.jpg',
     items: [
       {
         q: 'How much outreach goes out per day?',
@@ -95,6 +99,7 @@ const FAQ_GROUPS = [
   },
   {
     title: 'Platform & tech',
+    image: '/images/faq/faq-5-platform.jpg',
     items: [
       {
         q: 'Do I have to manage anything?',
@@ -135,16 +140,30 @@ export default function FAQPage() {
       </section>
 
       <section className="border-t border-black/5 bg-white px-4 py-16 md:px-6 md:py-24">
-        <div className="mx-auto w-full max-w-3xl space-y-20">
+        <div className="mx-auto w-full max-w-3xl space-y-24">
           {FAQ_GROUPS.map((group) => (
             <div key={group.title}>
-              <h2 className="text-balance text-3xl font-bold tracking-tight text-neutral-950 md:text-4xl">
-                {group.title}
-              </h2>
+              {/* Category vignette — editorial banner */}
+              <div className="relative overflow-hidden rounded-2xl border border-black/10 shadow-[0_2px_8px_rgba(0,0,0,0.04),_0_16px_32px_-12px_rgba(184,83,29,0.08)]">
+                <img
+                  src={group.image}
+                  alt=""
+                  className="aspect-[16/6] w-full object-cover"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/15 to-transparent" />
+                <div className="absolute bottom-6 left-6 md:bottom-8 md:left-8">
+                  <div className="mb-3 h-px w-12 bg-[#e8ff47]" />
+                  <h2 className="text-balance text-3xl font-bold tracking-tight text-white md:text-4xl">
+                    {group.title}
+                  </h2>
+                </div>
+              </div>
+
               <div className="mt-10 space-y-8">
                 {group.items.map((item) => (
-                  <div key={item.q} className="border-l-2 border-neutral-300 pl-6">
-                    <p className="text-lg font-semibold text-neutral-950">{item.q}</p>
+                  <div key={item.q} className="border-l-2 border-rust pl-6">
+                    <p className="text-lg font-semibold text-[#0f0d08]">{item.q}</p>
                     <p className="mt-3 text-base leading-relaxed text-neutral-600">
                       {item.a}
                     </p>
