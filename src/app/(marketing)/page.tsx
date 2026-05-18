@@ -17,38 +17,41 @@ export default function MarketingHome() {
   return (
     <>
       {/* ────────────────────── HERO ────────────────────── */}
-      <section className="marketing-hero-bg relative px-4 pt-24 pb-16 md:px-6 md:pt-36 md:pb-24">
-        <div className="mx-auto w-full max-w-6xl">
-          <div className="mx-auto max-w-3xl text-center">
-            <div className="mb-8 flex justify-center">
-              <Eyebrow>For music catalog financing scouts</Eyebrow>
+      <section className="marketing-hero-bg relative px-4 pt-16 pb-20 md:px-6 md:pt-20 md:pb-24 lg:pt-24">
+        <div className="mx-auto w-full max-w-7xl">
+          <div className="grid items-center gap-12 md:grid-cols-2 md:gap-12 lg:gap-16">
+            {/* LEFT — text + CTAs */}
+            <div className="text-center md:text-left">
+              <div className="mb-6 flex justify-center md:justify-start">
+                <Eyebrow>For music catalog financing scouts</Eyebrow>
+              </div>
+              <h1 className="text-balance text-4xl font-bold leading-[1.05] tracking-tight text-[#0f0d08] sm:text-5xl md:text-5xl lg:text-6xl xl:text-[4.25rem]">
+                Outreach that doesn't feel like outreach.
+              </h1>
+              <p className="mx-auto mt-6 max-w-xl text-balance text-base leading-relaxed text-neutral-600 md:mx-0 md:mt-8 md:text-lg">
+                Praecora carries personalized Instagram and email outreach to every
+                artist worth knowing — at a volume no human can match, with the care
+                no bot can fake.
+              </p>
+              <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center md:mt-10 md:justify-start">
+                <Link href="/pricing" className="cta-primary">
+                  See pricing <ArrowRight className="h-4 w-4" />
+                </Link>
+                <Link href="/demo" className="cta-secondary">
+                  Book a 20-min demo
+                </Link>
+              </div>
             </div>
-            <h1 className="text-balance text-5xl font-bold leading-[1.02] tracking-tight text-[#0f0d08] md:text-7xl lg:text-[5.5rem]">
-              Outreach that doesn't feel like outreach.
-            </h1>
-            <p className="mx-auto mt-10 max-w-2xl text-balance text-lg leading-relaxed text-neutral-600 md:text-xl">
-              Praecora carries personalized Instagram and email outreach to every
-              artist worth knowing — at a volume no human can match, with the care
-              no bot can fake.
-            </p>
-            <div className="mt-12 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <Link href="/pricing" className="cta-primary">
-                See pricing <ArrowRight className="h-4 w-4" />
-              </Link>
-              <Link href="/demo" className="cta-secondary">
-                Book a 20-min demo
-              </Link>
-            </div>
-          </div>
 
-          {/* Hero narrative video — teaser loop, click to play full Anatomy of a Deal */}
-          <div className="mx-auto mt-20 max-w-4xl md:mt-24">
-            <HeroVideoPlayer
-              teaserSrc="/videos/anatomy-of-a-deal-teaser.mp4"
-              fullSrc="/videos/anatomy-of-a-deal.mp4"
-              posterSrc="/videos/anatomy-of-a-deal-poster.jpg"
-              caption="Watch — Anatomy of a deal"
-            />
+            {/* RIGHT — video teaser */}
+            <div className="mx-auto w-full max-w-xl md:max-w-none">
+              <HeroVideoPlayer
+                teaserSrc="/videos/anatomy-of-a-deal-teaser.mp4"
+                fullSrc="/videos/anatomy-of-a-deal.mp4"
+                posterSrc="/videos/anatomy-of-a-deal-poster.jpg"
+                caption="Watch — Anatomy of a deal"
+              />
+            </div>
           </div>
         </div>
       </section>
