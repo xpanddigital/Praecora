@@ -1,10 +1,15 @@
 import type { MetadataRoute } from 'next'
-import { POSTS } from './(marketing)/blog/posts'
+import { getVisiblePosts } from './(marketing)/blog/posts'
 
 const BASE = 'https://www.praecora.com'
 
+// Revalidate hourly so scheduled posts flip into the sitemap without
+// a deploy. Matches the listing page cadence.
+export const revalidate = 3600
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date()
+  const visiblePosts = getVisiblePosts(now)
 
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: `${BASE}/`, lastModified: now, changeFrequency: 'weekly', priority: 1 },
@@ -40,7 +45,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ]
 
-  const postRoutes: MetadataRoute.Sitemap = POSTS.map((p) => ({
+  const postRoutes: MetadataRoute.Sitemap = visiblePosts.map((p) => ({
     url: `${BASE}/blog/${p.slug}`,
     lastModified: new Date((p.updatedAt ?? p.publishedAt) + 'T00:00:00Z'),
     changeFrequency: 'monthly',

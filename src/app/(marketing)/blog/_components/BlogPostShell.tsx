@@ -1,10 +1,12 @@
 import Link from 'next/link'
+import { notFound } from 'next/navigation'
 import { ArrowRight, ArrowLeft } from 'lucide-react'
 import { Eyebrow } from '@/components/marketing/Ornament'
 import {
   type BlogPost,
   PILLAR_LABELS,
   getRelatedPosts,
+  isPublished,
 } from '@/app/(marketing)/blog/posts'
 
 /**
@@ -23,6 +25,13 @@ export function BlogPostShell({
   post: BlogPost
   children: React.ReactNode
 }) {
+  // Future-scheduled posts return 404 until their `publishedAt`. Pages
+  // using this shell should also export `revalidate = 3600` so the 404
+  // flips to the rendered article within an hour of the publish date.
+  if (!isPublished(post)) {
+    notFound()
+  }
+
   const related = getRelatedPosts(post.slug, 3)
   const publishedDateLabel = formatDate(post.publishedAt)
   const updatedDateLabel = post.updatedAt ? formatDate(post.updatedAt) : null

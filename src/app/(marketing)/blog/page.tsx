@@ -2,7 +2,12 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 import { ArrowRight } from 'lucide-react'
 import { Eyebrow } from '@/components/marketing/Ornament'
-import { POSTS, PILLAR_LABELS, type BlogPost } from './posts'
+import { getVisiblePosts, PILLAR_LABELS, type BlogPost } from './posts'
+
+// Revalidate hourly so newly-scheduled posts flip to visible without
+// requiring a deploy. Each scheduled post becomes visible at 00:00 UTC
+// on its `publishedAt`; the page will pick it up within an hour.
+export const revalidate = 3600
 
 export const metadata: Metadata = {
   title: 'The Praecora field guide — Music catalog scouting, written down',
@@ -21,8 +26,9 @@ export const metadata: Metadata = {
 }
 
 export default function BlogIndex() {
-  const featured = POSTS.filter((p) => p.featured)
-  const rest = POSTS.filter((p) => !p.featured)
+  const visible = getVisiblePosts()
+  const featured = visible.filter((p) => p.featured)
+  const rest = visible.filter((p) => !p.featured)
 
   return (
     <>
