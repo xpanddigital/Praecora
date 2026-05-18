@@ -12,9 +12,12 @@ export function MarketingFooter() {
             >
               Praecora
             </Link>
+            <p className="mt-2 font-[var(--font-heading)] text-base italic text-neutral-700">
+              Outreach that carries weight.
+            </p>
             <p className="mt-4 text-sm leading-relaxed text-neutral-600">
-              Done-for-you Instagram and email outreach for music catalog
-              financing scouts.
+              The herald that delivers your message to every artist worth knowing.
+              Built for music catalog financing scouts.
             </p>
           </div>
 

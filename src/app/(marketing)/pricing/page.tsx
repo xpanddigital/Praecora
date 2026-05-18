@@ -22,7 +22,8 @@ export default function PricingPage() {
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-neutral-600">
             Four tiers, scaled by outreach volume across Instagram and email. Same
-            platform, same AI, same managed delivery — just more of it as you grow.
+            Praecora platform, same AI, same care in delivery — just more of it as
+            you grow.
           </p>
 
           <div className="mx-auto mt-10 flex max-w-2xl flex-col gap-4 rounded-xl border border-black/10 bg-white p-6 text-left sm:flex-row sm:items-start">

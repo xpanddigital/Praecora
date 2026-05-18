@@ -13,7 +13,7 @@ const FAQ_GROUPS = [
     items: [
       {
         q: 'What does Praecora actually do?',
-        a: 'We run your Instagram and email outreach end-to-end. AI drafts personalized cold openers based on each artist\'s profile, recent posts, and Spotify catalog. We handle delivery across both channels. Replies route into your Praecora inbox. AI classifies them and suggests responses. You reply with one click and book the call.',
+        a: 'Praecora is your herald — the platform that carries personalized outreach to every artist worth knowing on your behalf. AI drafts cold openers based on each artist\'s bio, recent posts, and Spotify catalog. We handle delivery across Instagram and email. Replies route into your Praecora inbox, AI-classified and ready for your one-click response. You stay focused on the only thing that compounds: closing.',
       },
       {
         q: 'Why both Instagram and email?',

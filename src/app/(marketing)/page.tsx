@@ -1,14 +1,14 @@
 import Link from 'next/link'
-import { ArrowRight, Instagram, Mail, ShieldCheck, Inbox, Sparkles, TrendingUp } from 'lucide-react'
+import { ArrowRight, Instagram, Mail, Inbox, X, Check } from 'lucide-react'
 import { TIERS } from '@/components/marketing/pricing-data'
 import { UnifiedInboxMockup } from '@/components/marketing/UnifiedInboxMockup'
 import { AiDrafterMockup } from '@/components/marketing/AiDrafterMockup'
 import { PipelineMockup } from '@/components/marketing/PipelineMockup'
 
 export const metadata = {
-  title: 'Praecora — Done-for-you Instagram + email outreach for music catalog scouts',
+  title: 'Praecora — Outreach that doesn\'t feel like outreach',
   description:
-    'AI sends the DMs and the emails. Replies route into one inbox. You close the deals. Built for music catalog financing scouts.',
+    'Praecora carries personalized Instagram and email outreach to every artist worth knowing — at a volume no human can match, with the care no bot can fake. Built for music catalog scouts.',
 }
 
 export default function MarketingHome() {
@@ -22,15 +22,11 @@ export default function MarketingHome() {
               For music catalog financing scouts
             </p>
             <h1 className="text-balance text-5xl font-bold leading-[1.05] tracking-tight text-neutral-950 md:text-7xl">
-              We send the DMs.
-              <br />
-              We send the emails.
-              <br />
-              <span className="text-neutral-500">You close the deals.</span>
+              Outreach that doesn't feel like outreach.
             </h1>
             <p className="mx-auto mt-8 max-w-2xl text-balance text-lg text-neutral-600 md:text-xl">
-              Multi-channel outreach for music catalog scouts. Personalized at scale by AI.
-              Replies routed into one inbox. You stay focused on the only thing that matters.
+              Praecora carries personalized Instagram and email outreach to every artist
+              worth knowing — at a volume no human can match, with the care no bot can fake.
             </p>
             <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Link
@@ -82,32 +78,39 @@ export default function MarketingHome() {
         </div>
       </section>
 
-      {/* THE PROBLEM */}
+      {/* THE PROBLEM — name the villain */}
       <section className="px-4 py-24 md:px-6 md:py-32">
         <div className="mx-auto w-full max-w-3xl">
           <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
-            Why scouts come to us
+            The drudgery problem
           </p>
           <h2 className="text-balance text-4xl font-bold tracking-tight text-neutral-950 md:text-5xl">
-            You didn't get into catalog finance to babysit Instagram and write cold emails all day.
+            You didn't get into catalog finance to type "hey love your sound" 200 times a day.
           </h2>
           <p className="mt-8 text-lg leading-relaxed text-neutral-600">
-            Every serious scout we talk to says the same thing:
+            You went into this work because you're good at judgment, relationships, and the
+            close. But outreach is math: more conversations = more deals = more commissions.
+            So you grind. And the grind grinds you back.
+          </p>
+          <p className="mt-4 text-lg leading-relaxed text-neutral-600">
+            The villain isn't AI. It isn't Instagram. It's <strong className="text-neutral-950">the drudgery</strong> — the
+            mechanical work that scales linearly with your effort and burns out everything
+            around it.
           </p>
 
           <div className="mt-12 space-y-10">
             {[
               {
                 title: 'My accounts keep getting banned.',
-                body: 'You spent months building 5 IG accounts. Three got nuked the same week. Now you\'re back to square one with no plan to make the next set last longer.',
+                body: 'Because nobody told you accounts need 4 weeks of careful preparation before they can survive real volume. Without that, your fleet has a 90-day half-life.',
               },
               {
-                title: 'I don\'t have time to send 140 DMs and 500 emails a day.',
-                body: 'Personalized outreach takes 5+ minutes per touch. Doing real volume across both channels is a full-time job. So you do less, your pipeline stays thin, and scaling feels impossible.',
+                title: "I don't have time to send 140 DMs and 500 emails a day.",
+                body: "And you shouldn't — that work doesn't need you. It needs a herald who pays attention to each artist before sending. That's a different job entirely.",
               },
               {
                 title: 'AI-written outreach sounds robotic and gets me flagged.',
-                body: 'You tried the bots. The replies were either zero or "stop spamming me." You\'re convinced the only way is manual — but you\'ve got no time for that either.',
+                body: 'Most AI does. The lazy kind that templates "hope this finds you well" across 10,000 contacts. Praecora doesn\'t.',
               },
             ].map((item) => (
               <div key={item.title} className="border-l-2 border-neutral-300 pl-6">
@@ -118,6 +121,37 @@ export default function MarketingHome() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* GUIDE INTRO — Praecora as the herald with empathy + authority */}
+      <section className="border-t border-black/5 bg-white px-4 py-24 md:px-6 md:py-32">
+        <div className="mx-auto w-full max-w-3xl">
+          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
+            Your herald
+          </p>
+          <h2 className="text-balance text-4xl font-bold tracking-tight text-neutral-950 md:text-5xl">
+            We carry your message. With care.
+          </h2>
+          <p className="mt-8 text-lg leading-relaxed text-neutral-700">
+            Praecora was built by operators who'd watched too many scouts burn through
+            accounts, burn through nights, and burn out — all while their actual skill
+            (closing deals) sat unused.
+          </p>
+          <p className="mt-4 text-lg leading-relaxed text-neutral-700">
+            We named the platform after the Latin{' '}
+            <em className="font-[var(--font-heading)] italic text-neutral-950">praeco</em>{' '}
+            — the herald who carried important messages on behalf of others — paired with{' '}
+            <em className="font-[var(--font-heading)] italic text-neutral-950">cor</em>,
+            meaning heart. Because outreach without care is spam. And spam is what got the
+            last generation of scouts banned.
+          </p>
+          <p className="mt-4 text-lg leading-relaxed text-neutral-700">
+            Every cold opener Praecora drafts is read against the artist's bio, recent
+            posts, and Spotify catalog before it goes out. Every reply is classified,
+            suggested, and ready for your one-click response. The volume happens on its
+            own. <strong className="text-neutral-950">The closing — still you.</strong>
+          </p>
         </div>
       </section>
 
@@ -133,8 +167,8 @@ export default function MarketingHome() {
                 Two channels. One inbox.
               </h2>
               <p className="mt-6 text-lg leading-relaxed text-neutral-600">
-                Indie artists live on Instagram. Their managers and labels live in email. We
-                run both, in parallel, on every artist we touch.
+                Indie artists live on Instagram. Their managers and labels live in email.
+                Praecora carries your message on both, in parallel, on every artist you touch.
               </p>
 
               <div className="mt-10 space-y-6">
@@ -202,7 +236,7 @@ export default function MarketingHome() {
               </p>
               <p className="mt-4 text-base leading-relaxed text-neutral-600">
                 Then a quality pass before send. Then delivery via the right channel.
-                You see what's queued, nothing goes out without standards.
+                You see what's queued. Nothing goes out without standards.
               </p>
             </div>
             <div>
@@ -239,15 +273,15 @@ export default function MarketingHome() {
         </div>
       </section>
 
-      {/* HOW IT WORKS */}
+      {/* THE PLAN — explicit 3-step path */}
       <section className="border-t border-black/5 px-4 py-24 md:px-6 md:py-32">
         <div className="mx-auto w-full max-w-5xl">
           <div className="max-w-3xl">
             <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
-              How it works
+              The plan
             </p>
             <h2 className="text-balance text-4xl font-bold tracking-tight text-neutral-950 md:text-5xl">
-              Three steps. About 30 minutes a day.
+              Three steps. Four weeks to live.
             </h2>
           </div>
 
@@ -255,18 +289,18 @@ export default function MarketingHome() {
             {[
               {
                 step: '01',
-                title: 'Setup (one-time, ~4 weeks)',
-                body: 'We provision your dedicated outreach presence across Instagram and email, configure your AI voice, and prepare your accounts for safe, sustainable operation.',
+                title: 'Pick your tier',
+                body: 'Pay onboarding upfront. Pick your volume. Subscription doesn\'t start until you\'re live.',
               },
               {
                 step: '02',
-                title: 'Outreach (every day)',
-                body: 'AI drafts personalized cold openers — one per artist, referencing real specifics. We handle delivery across both channels. You never touch the send button.',
+                title: 'We build your herald',
+                body: 'Four weeks of careful account preparation across Instagram and email. You don\'t lift a finger.',
               },
               {
                 step: '03',
-                title: 'Close (your part)',
-                body: 'Replies route into your Praecora inbox. AI classifies them, suggests responses. You reply with one click and book the call.',
+                title: 'Close from one inbox',
+                body: '~30 min/day in your Praecora inbox. AI classifies replies, suggests responses, queues your next move.',
               },
             ].map((s) => (
               <div key={s.step}>
@@ -358,8 +392,69 @@ export default function MarketingHome() {
         </div>
       </section>
 
+      {/* STAKES — two paths */}
+      <section className="border-t border-black/5 px-4 py-24 md:px-6 md:py-32">
+        <div className="mx-auto w-full max-w-5xl">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
+              The stakes
+            </p>
+            <h2 className="text-balance text-4xl font-bold tracking-tight text-neutral-950 md:text-5xl">
+              Two paths from here.
+            </h2>
+            <p className="mx-auto mt-6 max-w-2xl text-lg text-neutral-600">
+              You're 90 days from a meaningfully different operation. Which version of it
+              do you want?
+            </p>
+          </div>
+
+          <div className="mt-16 grid gap-6 md:grid-cols-2">
+            {/* Without */}
+            <div className="rounded-xl border border-black/10 bg-white p-8">
+              <p className="text-sm font-semibold uppercase tracking-wider text-neutral-500">
+                Without Praecora
+              </p>
+              <ul className="mt-6 space-y-4">
+                {[
+                  '6 hours/day on outreach grind',
+                  'Accounts banned every quarter',
+                  'Pipeline tied to your typing speed',
+                  'Stuck at your current ceiling',
+                  'Nights and weekends gone',
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-sm text-neutral-600">
+                    <X className="mt-0.5 h-4 w-4 shrink-0 text-neutral-400" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            {/* With */}
+            <div className="rounded-xl border border-neutral-950 bg-white p-8 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.15)]">
+              <p className="text-sm font-semibold uppercase tracking-wider text-neutral-950">
+                With Praecora
+              </p>
+              <ul className="mt-6 space-y-4">
+                {[
+                  '~30 minutes/day on closing',
+                  'Accounts lasting 12+ months',
+                  'Pipeline compounding while you sleep',
+                  '5–15 deals/month, predictable',
+                  'Your time back where it belongs',
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-sm text-neutral-700">
+                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-neutral-950" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* DAY IN THE LIFE */}
-      <section className="px-4 py-24 md:px-6 md:py-32">
+      <section className="border-t border-black/5 bg-white px-4 py-24 md:px-6 md:py-32">
         <div className="mx-auto w-full max-w-3xl">
           <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
             A day in the life
@@ -422,7 +517,7 @@ export default function MarketingHome() {
       </section>
 
       {/* HONEST READ */}
-      <section className="border-t border-black/5 bg-white px-4 py-24 md:px-6 md:py-32">
+      <section className="border-t border-black/5 px-4 py-24 md:px-6 md:py-32">
         <div className="mx-auto w-full max-w-3xl">
           <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
             Honest read
@@ -431,8 +526,8 @@ export default function MarketingHome() {
             What can still go wrong.
           </h2>
           <p className="mt-6 text-lg leading-relaxed text-neutral-600">
-            We won't pretend outreach at this volume is risk-free. Anyone who tells
-            you that is either lying or new. Here's what we know:
+            We won't pretend outreach at this volume is risk-free. Anyone who tells you
+            that is either lying or new. Here's what we know:
           </p>
 
           <div className="mt-12 space-y-8">
@@ -459,34 +554,49 @@ export default function MarketingHome() {
         </div>
       </section>
 
-      {/* FOUNDER NOTE — the one place Cormorant Garamond italic shines */}
-      <section className="border-t border-black/5 px-4 py-24 md:px-6 md:py-32">
+      {/* FOUNDER NOTE — etymology + signed personally */}
+      <section className="border-t border-black/5 bg-white px-4 py-24 md:px-6 md:py-32">
         <div className="mx-auto w-full max-w-3xl">
           <p className="mb-8 text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
             Founder note
           </p>
-          <blockquote className="font-[var(--font-heading)] text-3xl italic leading-relaxed text-neutral-950 md:text-4xl">
-            "The music catalog financing industry is one of the few where Instagram and
-            email are the only channels that consistently produce deals. The scouts who
-            scale share one playbook. The ones who don't share a different pattern: their
-            accounts get banned, their outreach gets flagged, their inboxes turn into
-            chaos. Praecora is the platform we wish existed when we started."
+          <blockquote className="space-y-6 font-[var(--font-heading)] text-2xl italic leading-relaxed text-neutral-950 md:text-3xl">
+            <p>
+              "Praecora" comes from the Latin praeco — the herald who carried important
+              messages on behalf of others — and cor, meaning heart.
+            </p>
+            <p>
+              I named it that because the music industry doesn't need another generic
+              outreach bot. It needs a herald who actually pays attention to the artist
+              on the other end. Who reads the bio. Who notices the latest release. Who
+              carries your message with the care you'd give it yourself, at a volume
+              you never could alone.
+            </p>
+            <p>
+              I built Praecora because I'd watched too many scouts in this industry burn
+              through accounts, burn through nights, and burn out — all while their actual
+              skill (closing deals) sat unused. The mechanical work was eating the
+              meaningful work.
+            </p>
+            <p>
+              Praecora is what I wish had existed when I was inside this playbook myself.
+            </p>
           </blockquote>
-          <p className="mt-8 text-sm font-medium text-neutral-500">
-            — The Praecora team
+          <p className="mt-10 text-sm font-medium text-neutral-500">
+            — Joel House, Founder
           </p>
         </div>
       </section>
 
       {/* FINAL CTA */}
-      <section className="border-t border-black/5 bg-white px-4 py-24 md:px-6 md:py-32">
+      <section className="border-t border-black/5 px-4 py-24 md:px-6 md:py-32">
         <div className="mx-auto w-full max-w-3xl text-center">
           <h2 className="text-balance text-5xl font-bold tracking-tight text-neutral-950 md:text-6xl">
-            Stop sending DMs and writing emails yourself.
+            Let Praecora carry it for you.
           </h2>
           <p className="mx-auto mt-8 max-w-xl text-lg text-neutral-600">
-            Pick a tier, pay onboarding, and we'll have your first cold outreach going
-            out in ~4 weeks. Subscription doesn't bill until you're live.
+            Pick a tier. Pay onboarding. We'll have your herald live in ~4 weeks.
+            Subscription doesn't bill until you're live.
           </p>
           <div className="mt-12 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link
