@@ -73,6 +73,24 @@ export default function Page() {
           are true regardless of which platform you eventually pick.
         </p>
 
+        <h2>What makes the best CRM for a music industry sales operation?</h2>
+
+        <p>
+          Short answer: not the pipeline view. The thing that separates a
+          working music industry CRM from a generic sales CRM is what
+          surface the operator opens in the morning. For a SaaS rep, that
+          surface is the deal pipeline. For a{' '}
+          <a href="/blog/music-catalog-financing-broker-playbook">
+            music broker
+          </a>{' '}
+          sourcing catalog financing deals, that surface needs to be the
+          inbox — because most of the day's work happens before any deal
+          object exists. The rest of this piece is a careful walkthrough
+          of why that distinction matters, why the standard tools get it
+          wrong, and what a CRM built for this specific work looks like
+          in practice.
+        </p>
+
         <h2>The job a catalog scout's CRM actually has to do</h2>
 
         <p>

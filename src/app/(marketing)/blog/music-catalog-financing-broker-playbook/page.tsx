@@ -77,6 +77,28 @@ export default function Page() {
           this might be your work, the path forward is at the bottom.
         </p>
 
+        <h2>What is a music broker, exactly?</h2>
+
+        <p>
+          Quick clarification, because the term gets used loosely. A{' '}
+          <strong>music broker</strong>, in the sense this piece means,
+          is not a booking agent (who books gigs), not a talent agent
+          (who represents artists for management), and not a music
+          publisher (who licenses songs). A music broker — also called a
+          music catalog scout — sources catalog financing deals between
+          independent artists and the funds that buy or finance their
+          royalty streams. The broker earns commission (typically 10%
+          of the closed advance) from the buyer when a deal funds.
+        </p>
+
+        <p>
+          If you searched for "music broker" looking for booking-agent
+          information, you probably want a different article. If you're
+          curious about the people who source catalog finance deals on
+          commission, you're in the right place. The rest of this piece
+          is the operator's playbook for that role.
+        </p>
+
         <h2>What a music catalog scout actually does</h2>
 
         <p>
@@ -497,7 +519,15 @@ export default function Page() {
           relationship, the rate-limiting factor is throughput. You can't
           send 500 personalized touches a day yourself. Most scouts hit
           this ceiling around month 6–12 and start looking for tools, VAs,
-          and infrastructure. This is where Praecora was built to fit.
+          and infrastructure. This is where a purpose-built{' '}
+          <a href="/blog/best-crm-for-music-catalog-scouts">
+            music industry CRM
+          </a>{' '}
+          stops being optional. Generic pipeline tools fail this work for
+          structural reasons we cover in that piece — for now, the
+          short version is: catalog scouting is a conversation-routing
+          problem first, a pipeline problem second, and generic CRMs
+          only handle the second half.
         </p>
 
         <Callout label="The honest read on getting in">

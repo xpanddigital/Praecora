@@ -70,9 +70,30 @@ export default function Page() {
           </p>
         </Callout>
 
+        <h2>Every active buyer in this directory</h2>
+
+        <p>
+          Quick jump-to for the buyers covered below:{' '}
+          <a href="#royfi">RoyFi</a>,{' '}
+          <a href="#songvest">Songvest</a>,{' '}
+          <a href="#royalty-exchange">Royalty Exchange</a>,{' '}
+          <a href="#beatbread">beatBread</a>,{' '}
+          <a href="#symphonic-advances">Symphonic Advances</a>,{' '}
+          <a href="#sound-royalties">Sound Royalties</a>,{' '}
+          <a href="#indify">Indify</a>,{' '}
+          <a href="#connect-music">Connect Music</a>,{' '}
+          <a href="#xposure-music">Xposure Music</a>,{' '}
+          <a href="#intercept">Intercept</a>, Futures Music Group,
+          Round Hill Music, Concord (Hipgnosis), Primary Wave, Influence
+          Media Partners, Iconoclast, HarbourView Equity Partners,
+          Spirit Music Group, TuneCore (via RoyFi partnership),
+          DistroKid, CD Baby, United Masters, The Orchard / Sony Music
+          Entertainment, Believe Music, Stem.
+        </p>
+
         <h2>Small-deal buyers ($10K–$100K advance band)</h2>
 
-        <h3>RoyFi</h3>
+        <h3 id="royfi">RoyFi</h3>
 
         <p>
           <strong>Product:</strong> Royalty advance (their "Royalty Fast
@@ -91,7 +112,7 @@ export default function Page() {
           artists already on streaming.
         </p>
 
-        <h3>Songvest</h3>
+        <h3 id="songvest">Songvest</h3>
 
         <p>
           <strong>Product:</strong> Royalty Exchange-style marketplace
@@ -107,7 +128,7 @@ export default function Page() {
           rights) that other platforms ignore.
         </p>
 
-        <h3>Royalty Exchange</h3>
+        <h3 id="royalty-exchange">Royalty Exchange</h3>
 
         <p>
           <strong>Product:</strong> Marketplace — artists list catalog
@@ -126,7 +147,7 @@ export default function Page() {
 
         <h2>Mid-deal buyers ($50K–$500K advance band)</h2>
 
-        <h3>beatBread</h3>
+        <h3 id="beatbread">beatBread</h3>
 
         <p>
           <strong>Product:</strong> Royalty advance — their core product
@@ -144,7 +165,7 @@ export default function Page() {
           underwriting. The category leader by deal count.
         </p>
 
-        <h3>Symphonic Advances</h3>
+        <h3 id="symphonic-advances">Symphonic Advances</h3>
 
         <p>
           <strong>Product:</strong> Royalty advance plus structured term
@@ -163,7 +184,7 @@ export default function Page() {
           distribution elsewhere.
         </p>
 
-        <h3>Sound Royalties</h3>
+        <h3 id="sound-royalties">Sound Royalties</h3>
 
         <p>
           <strong>Product:</strong> Royalty-collateralized advances and
@@ -180,7 +201,7 @@ export default function Page() {
           want a more bank-like structure.
         </p>
 
-        <h3>Indify</h3>
+        <h3 id="indify">Indify</h3>
 
         <p>
           <strong>Product:</strong> Marketplace-style funding for
@@ -196,7 +217,7 @@ export default function Page() {
           suits artists in active release cycles.
         </p>
 
-        <h3>Connect Music</h3>
+        <h3 id="connect-music">Connect Music</h3>
 
         <p>
           <strong>Product:</strong> Multi-product. Advances, term deals,
@@ -216,7 +237,7 @@ export default function Page() {
 
         <h2>Large-deal buyers ($300K–$5M+ band)</h2>
 
-        <h3>Xposure Music</h3>
+        <h3 id="xposure-music">Xposure Music</h3>
 
         <p>
           <strong>Product:</strong> Term advances and partial buyouts.
@@ -234,7 +255,7 @@ export default function Page() {
           mid-tier indie artists who've worked with them.
         </p>
 
-        <h3>Intercept</h3>
+        <h3 id="intercept">Intercept</h3>
 
         <p>
           <strong>Product:</strong> Catalog acquisitions, primarily

@@ -87,11 +87,14 @@ export default function Page() {
         <h3>1. Royalty advance (most common)</h3>
 
         <p>
-          The artist receives a lump-sum payment upfront, in exchange for
-          assigning some or all of their future royalty income to the
-          financier until the advance is "recouped" (paid back from those
-          royalties). After recoupment, the royalties revert to the
-          artist.
+          <strong>What is a royalty advance?</strong> It's a lump-sum
+          payment to the artist now, in exchange for assigning some or
+          all of their future royalty income to the financier until the
+          advance is "recouped" (paid back from those royalties). After
+          recoupment, the royalties revert to the artist. It's the most
+          common product in the indie catalog finance market in 2026 and
+          the default starting point for most artists exploring this
+          path.
         </p>
 
         <p>

@@ -62,6 +62,30 @@ export default function Page() {
           12+ months and the operation becomes a real business.
         </p>
 
+        <h2>Can you have multiple Instagram accounts safely?</h2>
+
+        <p>
+          Yes — but the architecture matters more than most operators
+          realize. Instagram does not ban accounts for being part of a
+          multi-account fleet. It bans accounts when a fleet's signals
+          collapse together. A scout running five separate Instagram
+          accounts from one MacBook on one home IP is a fleet whose
+          signals collapse. A scout running five accounts each on its
+          own dedicated cloud phone — with its own mobile carrier IP,
+          its own device fingerprint, and its own Facebook admin graph —
+          is a fleet whose signals don't. The difference between those
+          two architectures is the difference between a 90-day fleet
+          lifespan and a 12+ month one.
+        </p>
+
+        <p>
+          The rest of this piece is the four-layer architecture that
+          makes the second case work. Read it as a checklist: every
+          layer addresses one specific Instagram risk signal, and
+          missing any one of them is what kills most multi-account
+          operations.
+        </p>
+
         <h2>Why your accounts keep getting banned (the real reason)</h2>
 
         <p>

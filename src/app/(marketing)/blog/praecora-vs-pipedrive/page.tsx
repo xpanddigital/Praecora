@@ -58,6 +58,47 @@ export default function Page() {
           motion is conversation-first.
         </p>
 
+        <h2>Pipedrive alternatives for outreach-heavy sales teams</h2>
+
+        <p>
+          If you've landed here searching for a <strong>Pipedrive
+          alternative</strong>, the question worth asking before
+          comparing tools is: what's actually blocking you in Pipedrive
+          today? The answer almost always falls into one of two camps:
+        </p>
+
+        <ul>
+          <li>
+            <strong>Pipeline is fine, but the prospecting/outreach side
+            is empty.</strong> You're managing the deals you have, but
+            you don't have a tool that handles the cold outreach side
+            (Instagram DMs, cold email, reply triage). For this, you
+            want a Pipedrive complement — not a replacement.
+          </li>
+          <li>
+            <strong>Most of your day lives in conversations, not
+            deals.</strong> If you're doing high-volume cold outbound
+            and most of your work is reading replies, classifying intent,
+            and writing personalized responses — Pipedrive isn't the
+            right primary surface. The pipeline-first model fights the
+            shape of the work.
+          </li>
+        </ul>
+
+        <p>
+          Praecora is built specifically for the second camp — for
+          conversation-first sales motions where the deal object is an
+          output of the conversation, not the starting point. If you're
+          in the first camp (deals exist; you need help managing them),
+          Pipedrive plus a separate outreach tool is probably the better
+          answer. We'll cover both cases honestly in the rest of this
+          piece, including comparison against the{' '}
+          <a href="/blog/praecora-vs-manychat">
+            ManyChat alternative
+          </a>{' '}
+          path some operators take for the outreach side.
+        </p>
+
         <h2>What Pipedrive is excellent at</h2>
 
         <p>

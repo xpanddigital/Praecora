@@ -67,7 +67,7 @@ export const POSTS: BlogPost[] = [
     title:
       'How to Run 7 Instagram Accounts Without Getting Banned: The 2026 Playbook',
     description:
-      'Why most multi-account Instagram setups collapse inside 90 days — and the four structural fixes that keep an account fleet alive for 12+ months. Written from inside an operation that lost everything and rebuilt it.',
+      'Multiple Instagram accounts collapse inside 90 days for most operators — and the four structural fixes that keep an account fleet alive for 12+ months. Written from inside an operation that lost everything and rebuilt it.',
     publishedAt: '2026-05-16',
     author: JOEL,
     readingTime: 14,
@@ -120,7 +120,7 @@ export const POSTS: BlogPost[] = [
     title:
       'Praecora vs ManyChat: Why Music Scouts Need More Than a Chatbot',
     description:
-      'ManyChat is a great tool. It\'s also the wrong tool for sourcing music catalog deals. Here\'s the architectural reason cold-outbound sales operators can\'t use comment-keyword chatbots — and what a deal-flow platform looks like instead.',
+      'Looking for a ManyChat alternative for cold outbound sales? ManyChat is a great tool, but it\'s the wrong tool for sourcing music catalog deals. Here\'s the architectural reason cold-outbound operators can\'t use comment-keyword chatbots — and what a deal-flow platform looks like instead.',
     publishedAt: '2026-05-10',
     author: JOEL,
     readingTime: 9,
@@ -133,7 +133,7 @@ export const POSTS: BlogPost[] = [
     title:
       'Cloud Phones for Instagram Outreach: GeeLark vs BitBrowser vs Multilogin (2026)',
     description:
-      'Antidetect browsers are not enough for a serious Instagram outreach fleet. Cloud phones are. Here\'s how the three serious vendors compare for music catalog scouts running 5+ accounts in parallel.',
+      'The best antidetect browser is no longer a browser — it\'s a cloud phone. Here\'s how the three serious cloud phone vendors (GeeLark, BitBrowser, Multilogin) compare for music catalog scouts running 5+ Instagram accounts in parallel, and why antidetect browser tooling alone stopped being enough in 2024.',
     publishedAt: '2026-05-08',
     author: JOEL,
     readingTime: 12,
@@ -191,7 +191,7 @@ export const POSTS: BlogPost[] = [
     title:
       'Praecora vs Pipedrive: Why Generic CRMs Fail Music Industry Sales',
     description:
-      'Pipedrive is great for the deals you already have. Music catalog scouting is mostly about the conversations that come before a deal exists. Here\'s why the pipeline-first CRM model breaks for this work — and what fits instead.',
+      'Looking for a Pipedrive alternative for music industry sales? Pipedrive is great for deals you already have, but music catalog scouting is mostly about the conversations that come before a deal exists. Here\'s why pipeline-first CRMs break for this work — and what fits instead.',
     publishedAt: '2026-04-30',
     author: JOEL,
     readingTime: 10,
