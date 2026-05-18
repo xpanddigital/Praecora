@@ -96,40 +96,41 @@ export const Scene: React.FC<SceneProps> = ({
             maxWidth: 920,
           }}
         >
-          {/* Rust hairline above caption */}
+          {/* Rust hairline above caption — bumped for proportional scaling */}
           <div
             style={{
-              width: 56,
-              height: 2,
+              width: 72,
+              height: 3,
               backgroundColor: '#b8531d',
-              marginBottom: 20,
-              borderRadius: 1,
+              marginBottom: 24,
+              borderRadius: 1.5,
             }}
           />
-          {/* Time + action stack */}
+          {/* Time + action stack — all sizes bumped ~28% for legibility
+              at smaller hero playback frames */}
           <div
             style={{
               display: 'flex',
               flexDirection: 'column',
-              gap: 6,
+              gap: 8,
               fontFamily: '"DM Sans", sans-serif',
             }}
           >
             <div
               style={{
-                fontSize: 22,
+                fontSize: 28,
                 fontWeight: 600,
                 letterSpacing: '0.18em',
                 textTransform: 'uppercase',
                 color: '#fafaf9',
-                opacity: 0.8,
+                opacity: 0.85,
               }}
             >
               {captionTime}
             </div>
             <div
               style={{
-                fontSize: 56,
+                fontSize: 72,
                 fontWeight: 700,
                 lineHeight: 1.05,
                 color: '#fafaf9',
@@ -144,10 +145,10 @@ export const Scene: React.FC<SceneProps> = ({
                   fontFamily: '"Cormorant Garamond", Georgia, serif',
                   fontStyle: 'italic',
                   fontWeight: 600,
-                  fontSize: 56,
+                  fontSize: 72,
                   lineHeight: 1.05,
                   color: '#e8ff47',
-                  marginTop: 6,
+                  marginTop: 8,
                 }}
               >
                 {captionEmphasis}

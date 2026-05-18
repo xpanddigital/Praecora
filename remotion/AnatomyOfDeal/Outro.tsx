@@ -113,7 +113,7 @@ export const Outro: React.FC = () => {
           }}
         />
 
-        {/* Tagline */}
+        {/* Tagline — bumped proportionally with scene captions */}
         <div
           style={{
             opacity: taglineOpacity,
@@ -121,7 +121,7 @@ export const Outro: React.FC = () => {
             fontFamily: '"Cormorant Garamond", Georgia, serif',
             fontStyle: 'italic',
             fontWeight: 500,
-            fontSize: 46,
+            fontSize: 58,
             color: '#0f0d08',
             letterSpacing: '-0.01em',
           }}
