@@ -23,6 +23,12 @@ const monoFont = DM_Mono({
 });
 
 export const metadata: Metadata = {
+  // metadataBase makes the OG image URL absolute when shared. Without
+  // this, link-preview scrapers (iMessage, Twitter/X, Slack, LinkedIn,
+  // WhatsApp) can't resolve the image URL and fall back to scraping
+  // page content — which is how the founder photo from /public/founder/
+  // was getting picked up as the preview.
+  metadataBase: new URL("https://www.praecora.com"),
   title: {
     default: "Praecora — Done-for-you Instagram outreach for music catalog scouts",
     template: "%s | Praecora",
@@ -35,6 +41,17 @@ export const metadata: Metadata = {
       "AI-drafted personalized cold openers, smart reply triage, and a unified inbox — fully managed and built to keep your accounts safe.",
     type: "website",
     siteName: "Praecora",
+    url: "https://www.praecora.com",
+    // images is auto-populated by Next.js from src/app/opengraph-image.tsx
+    // — don't override it here unless you want a different image.
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Praecora — Done-for-you Instagram outreach for music catalog scouts",
+    description:
+      "AI-drafted personalized cold openers, smart reply triage, and a unified inbox — fully managed and built to keep your accounts safe.",
+    // Same auto-population pattern: Next.js pulls from
+    // src/app/opengraph-image.tsx by default for twitter:image too.
   },
 };
 
