@@ -527,6 +527,105 @@ export default function Page() {
           </li>
         </ol>
 
+        <h2>Continue the tools and comparisons field guide</h2>
+
+        <p>
+          This piece is the framing of what a music industry CRM has
+          to do that generic CRMs don't. The following pieces in the
+          tools-and-comparisons pillar of the field guide cover
+          specific category comparisons and tool reviews:
+        </p>
+
+        <ul>
+          <li>
+            <strong>
+              <a href="/blog/praecora-vs-manychat">
+                Praecora vs ManyChat
+              </a>
+            </strong>{' '}
+            — why cold-outbound sourcing doesn't fit chatbot tools
+          </li>
+          <li>
+            <strong>
+              <a href="/blog/praecora-vs-pipedrive">
+                Praecora vs Pipedrive
+              </a>
+            </strong>{' '}
+            — why pipeline-first CRMs fail music industry sales
+          </li>
+          <li>
+            <strong>
+              <a href="/blog/pipedrive-alternatives-for-outreach-teams">
+                Best Pipedrive alternatives for outreach-first sales
+                teams
+              </a>
+            </strong>{' '}
+            — broader breakdown of the Pipedrive alternative landscape
+          </li>
+          <li>
+            <strong>
+              <a href="/blog/instagram-dm-bots-why-cold-outbound-avoids-them">
+                Instagram DM bots and why cold-outbound operators
+                avoid them
+              </a>
+            </strong>{' '}
+            — the architectural reason ManyChat-style tools can't do
+            this work
+          </li>
+          <li>
+            <strong>
+              <a href="/blog/instagram-automation-tools-2026">
+                Instagram automation tools 2026: the operator's map
+              </a>
+            </strong>{' '}
+            — the six distinct jobs the category serves and which
+            tool to pick for each
+          </li>
+          <li>
+            <strong>
+              <a href="/blog/sales-crm-small-business-niche-fit">
+                Sales CRM for small business: when generic tools stop
+                fitting
+              </a>
+            </strong>{' '}
+            — how to tell whether a niche tool or a generic CRM is
+            right for your sales motion
+          </li>
+          <li>
+            <strong>
+              <a href="/blog/music-promotion-platforms-vs-outreach-tools">
+                Music promotion platforms vs outreach tools
+              </a>
+            </strong>{' '}
+            — distinct categories that get conflated in music industry
+            tooling discussions
+          </li>
+          <li>
+            <strong>
+              <a href="/blog/smartlead-instantly-lemlist-compared-music-industry">
+                Smartlead vs Instantly vs Lemlist for music industry
+                outreach
+              </a>
+            </strong>{' '}
+            — operator comparison of the three serious cold email
+            infrastructure tools
+          </li>
+        </ul>
+
+        <p>
+          For the operational architecture context behind these tool
+          choices — Instagram fleets, cold email infrastructure, deal
+          flow — see{' '}
+          <a href="/blog/run-multiple-instagram-accounts-without-bans">
+            multiple Instagram accounts: the 2026 playbook
+          </a>{' '}
+          and{' '}
+          <a href="/blog/music-catalog-financing-broker-playbook">
+            the music broker playbook
+          </a>
+          .
+        </p>
+
         <h2>The bottom line</h2>
 
         <p>

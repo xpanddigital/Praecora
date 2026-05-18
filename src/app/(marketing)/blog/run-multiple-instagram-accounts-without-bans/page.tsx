@@ -503,6 +503,95 @@ export default function Page() {
           changed.
         </p>
 
+        <h2>Continue the IG outreach field guide</h2>
+
+        <p>
+          This piece is the architectural overview of running multiple
+          Instagram accounts safely. The following articles in the
+          field guide go deeper on specific layers of the
+          infrastructure:
+        </p>
+
+        <ul>
+          <li>
+            <strong>
+              <a href="/blog/cloud-phones-for-instagram-geelark-bitbrowser-multilogin">
+                Cloud phones for Instagram outreach: GeeLark vs
+                BitBrowser vs Multilogin
+              </a>
+            </strong>{' '}
+            — vendor comparison for the device-isolation layer
+          </li>
+          <li>
+            <strong>
+              <a href="/blog/antidetect-browsers-explained-cloud-phone-replacement">
+                Antidetect browsers explained (and why cloud phones
+                replaced them)
+              </a>
+            </strong>{' '}
+            — why browser-only isolation stopped being enough in 2024
+          </li>
+          <li>
+            <strong>
+              <a href="/blog/facebook-business-portfolio-multi-account-instagram">
+                Facebook Business Portfolio setup for multi-account
+                Instagram
+              </a>
+            </strong>{' '}
+            — the alias-FB-and-portfolio architecture that protects
+            the scout's real identity
+          </li>
+          <li>
+            <strong>
+              <a href="/blog/instagram-dm-limits-2026">
+                Instagram DM limits in 2026
+              </a>
+            </strong>{' '}
+            — daily volume math by account age, the 200/hour vs 20/day
+            distinction
+          </li>
+          <li>
+            <strong>
+              <a href="/blog/instagram-account-warm-up-7-day-checklist">
+                Instagram account warm-up: the 7-day checklist
+              </a>
+            </strong>{' '}
+            — daily activity sequence for every new account in the
+            fleet
+          </li>
+          <li>
+            <strong>
+              <a href="/blog/email-warm-up-explained-sender-domains">
+                Email warm-up explained
+              </a>
+            </strong>{' '}
+            — the parallel discipline for the email half of the
+            outreach stack
+          </li>
+          <li>
+            <strong>
+              <a href="/blog/instagram-business-vs-creator-account-outreach">
+                Instagram Business vs Creator account for outreach
+              </a>
+            </strong>{' '}
+            — which account type to use and why
+          </li>
+        </ul>
+
+        <p>
+          For the broader scout context — what the role actually is,
+          how to source artists for catalog finance deals, and how
+          buyers underwrite —{' '}
+          <a href="/blog/music-catalog-financing-broker-playbook">
+            see the music broker playbook
+          </a>
+          . For closing-side tactics like cold DM templates, see{' '}
+          <a href="/blog/cold-dm-indie-artists-instagram">
+            how to cold DM indie artists on Instagram
+          </a>
+          .
+        </p>
+
         <h2>The bottom line</h2>
 
         <p>

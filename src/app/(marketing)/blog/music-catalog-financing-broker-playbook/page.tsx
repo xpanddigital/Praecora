@@ -583,6 +583,101 @@ export default function Page() {
           the scout exists in that gap.
         </PullQuote>
 
+        <h2>Continue the broker playbook field guide</h2>
+
+        <p>
+          This piece is the overview of the role. For the deeper
+          operational and financial pieces of the broker playbook, the
+          following articles in the field guide go deeper on specific
+          dimensions:
+        </p>
+
+        <ul>
+          <li>
+            <strong>
+              <a href="/blog/music-catalog-financing-explained">
+                Music catalog financing explained
+              </a>
+            </strong>{' '}
+            — the four product types (royalty advance, catalog
+            buyout, term advance, distribution-attached) and how each
+            one works structurally
+          </li>
+          <li>
+            <strong>
+              <a href="/blog/music-catalog-buyer-directory-2026">
+                The music catalog buyer directory
+              </a>
+            </strong>{' '}
+            — every active indie catalog buyer in 2026, their deal
+            sizes, what they're underwriting, and how to approach them
+          </li>
+          <li>
+            <strong>
+              <a href="/blog/how-to-become-ar-scout-independent-path">
+                How to become an A&R scout (the independent path)
+              </a>
+            </strong>{' '}
+            — the independent commission-based path vs. the
+            traditional label-employee path
+          </li>
+          <li>
+            <strong>
+              <a href="/blog/beatbread-review-2026-indie-catalog-deals">
+                beatBread review 2026
+              </a>
+            </strong>{' '}
+            — operator's-perspective deep dive on the largest
+            indie-focused buyer
+          </li>
+          <li>
+            <strong>
+              <a href="/blog/music-catalog-valuation-multiples-2026">
+                Music catalog valuation multiples
+              </a>
+            </strong>{' '}
+            — the math behind what catalogs are actually worth and
+            how multiples are calculated
+          </li>
+          <li>
+            <strong>
+              <a href="/blog/royalty-advance-vs-catalog-sale-indie-artists">
+                Royalty advance vs catalog sale
+              </a>
+            </strong>{' '}
+            — when each structure is right and the long-term
+            consequences for the artist
+          </li>
+          <li>
+            <strong>
+              <a href="/blog/independent-music-distribution-vs-catalog-buyers">
+                Independent music distribution companies vs catalog
+                buyers
+              </a>
+            </strong>{' '}
+            — clean breakdown of two categories that get conflated
+            constantly
+          </li>
+        </ul>
+
+        <p>
+          For the operational infrastructure side of running a scout
+          operation (Instagram fleets, cold email, deal pipeline), see
+          the other field guide pillars:{' '}
+          <a href="/blog/run-multiple-instagram-accounts-without-bans">
+            multiple Instagram accounts
+          </a>
+          ,{' '}
+          <a href="/blog/cold-dm-indie-artists-instagram">
+            cold DM indie artists on Instagram
+          </a>
+          , and{' '}
+          <a href="/blog/best-crm-for-music-catalog-scouts">
+            the music industry CRM
+          </a>{' '}
+          piece.
+        </p>
+
         <h2>The closing question</h2>
 
         <p>

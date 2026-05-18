@@ -527,6 +527,67 @@ export default function Page() {
           Instagram apps on a phone is how you miss the deals that matter.
         </p>
 
+        <h2>Continue the closing-side field guide</h2>
+
+        <p>
+          This piece covers the Instagram DM side of opening
+          conversations with artists. The closing side of catalog
+          deals — qualification, the email channel, operational
+          workflow — lives in these adjacent pieces:
+        </p>
+
+        <ul>
+          <li>
+            <strong>
+              <a href="/blog/cold-email-templates-music-industry-sales">
+                Cold email templates for music industry sales
+              </a>
+            </strong>{' '}
+            — the email half of the multi-channel outreach stack, with
+            12 tested template structures for managers and labels
+          </li>
+          <li>
+            <strong>
+              <a href="/blog/chartmetric-for-music-catalog-scouts">
+                Chartmetric for music catalog scouts
+              </a>
+            </strong>{' '}
+            — the qualification engine. What to look at on Chartmetric
+            to know whether an artist is worth pitching
+          </li>
+          <li>
+            <strong>
+              <a href="/blog/spotify-for-artists-data-catalog-buyers">
+                Spotify for Artists data for catalog buyers
+              </a>
+            </strong>{' '}
+            — the specific data fields buyers care about when
+            underwriting deals
+          </li>
+          <li>
+            <strong>
+              <a href="/blog/va-workflow-music-catalog-outreach">
+                The VA workflow for music catalog outreach
+              </a>
+            </strong>{' '}
+            — hiring, training, and running a VA to handle the
+            mechanical layer of outreach
+          </li>
+        </ul>
+
+        <p>
+          For the infrastructure that makes high-volume cold DM
+          possible without bans, see{' '}
+          <a href="/blog/run-multiple-instagram-accounts-without-bans">
+            multiple Instagram accounts: the 2026 playbook
+          </a>
+          . For the broader role and economics, see{' '}
+          <a href="/blog/music-catalog-financing-broker-playbook">
+            the music broker playbook
+          </a>
+          .
+        </p>
+
         <h2>The bottom line</h2>
 
         <p>
