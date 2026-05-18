@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import type Stripe from 'stripe'
 import { getStripe } from '@/lib/stripe/client'
 import { createServiceClient } from '@/lib/supabase/service'
+import { sendOpsAlert } from '@/lib/email/resend'
 import { logger } from '@/lib/logger'
 
 export const runtime = 'nodejs'
@@ -230,6 +231,24 @@ async function handleCheckoutCompleted(event: Stripe.Event, supabase: ServiceCli
     ref,
     amount_cents: amountTotal,
   })
+
+  // Ops alert — non-blocking
+  await sendOpsAlert({
+    subject: `New Praecora signup — ${tier} (${ref || 'no ref'})`,
+    html: `
+      <h2>New scout signed up</h2>
+      <p><strong>Tier:</strong> ${tier}</p>
+      <p><strong>Billing cycle:</strong> ${billingCycle}</p>
+      <p><strong>Email:</strong> ${email}</p>
+      <p><strong>Name:</strong> ${fullName ?? '—'}</p>
+      <p><strong>Referral:</strong> ${ref || '—'}</p>
+      <p><strong>Onboarding paid:</strong> $${(amountTotal / 100).toFixed(2)}</p>
+      <p><strong>Stripe customer:</strong> <code>${customerId}</code></p>
+      <p><strong>Scout ID:</strong> <code>${scout.id}</code></p>
+      <hr/>
+      <p>Next step in ~4 weeks: mark this scout live in <a href="https://praecora.com/admin/scouts">/admin/scouts</a> to start their recurring billing.</p>
+    `,
+  })
 }
 
 async function handleInvoicePaid(event: Stripe.Event, supabase: ServiceClient) {
@@ -302,7 +321,20 @@ async function handleInvoiceFailed(event: Stripe.Event, supabase: ServiceClient)
     .from('stripe_events')
     .update({ related_scout_id: scout.id })
     .eq('event_id', event.id)
-  // Surface alert hook later (Slack / email). For now: logged + audited.
+
+  await sendOpsAlert({
+    subject: `Praecora payment FAILED — ${scout.email} (${scout.subscription_tier})`,
+    html: `
+      <h2>Invoice payment failed</h2>
+      <p><strong>Scout email:</strong> ${scout.email}</p>
+      <p><strong>Tier:</strong> ${scout.subscription_tier}</p>
+      <p><strong>Amount due:</strong> $${((invoice.amount_due ?? 0) / 100).toFixed(2)}</p>
+      <p><strong>Invoice:</strong> <code>${invoice.id}</code></p>
+      <p><strong>Scout ID:</strong> <code>${scout.id}</code></p>
+      <hr/>
+      <p>Stripe will retry automatically. Check the customer in the Stripe dashboard and follow up with the scout if it persists.</p>
+    `,
+  })
 }
 
 async function handleSubscriptionDeleted(event: Stripe.Event, supabase: ServiceClient) {
