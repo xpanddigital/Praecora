@@ -40,9 +40,21 @@ export default function MarketingHome() {
             </div>
           </div>
 
-          {/* Hero product mockup — the visual proof */}
-          <div className="mx-auto mt-20 max-w-3xl md:mt-24">
-            <UnifiedInboxMockup />
+          {/* Hero narrative video — Anatomy of a Deal */}
+          <div className="mx-auto mt-20 max-w-4xl md:mt-24">
+            <div className="marketing-mock-panel overflow-hidden">
+              <video
+                className="block h-auto w-full"
+                src="/videos/anatomy-of-a-deal.mp4"
+                poster="/videos/anatomy-of-a-deal-poster.jpg"
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="metadata"
+                aria-label="Anatomy of a deal — how outreach to deal close looks inside Praecora"
+              />
+            </div>
           </div>
         </div>
       </section>
