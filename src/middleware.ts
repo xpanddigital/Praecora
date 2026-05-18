@@ -1,6 +1,40 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
+/**
+ * Auth middleware — protects the dashboard surface only.
+ *
+ * Default: pages are PUBLIC. The marketing site (/, /pricing, /faq,
+ * /how-it-works, /demo, /legal/*) is reachable to anyone.
+ *
+ * Only paths matching a PROTECTED_PREFIX require an active Supabase
+ * session. Unauthenticated users hitting a protected path are bounced
+ * to /login (with their original destination preserved as ?next=).
+ *
+ * Authenticated users hitting /login or /signup are bounced to /dashboard.
+ */
+
+const PROTECTED_PREFIXES = [
+  '/dashboard',
+  '/admin',
+  '/analytics',
+  '/artists',
+  '/enrichment-logs',
+  '/inbox',
+  '/outreach',
+  '/pipeline',
+  '/scouts',
+  '/scraping',
+  '/settings',
+  '/templates',
+]
+
+function isProtectedPath(pathname: string): boolean {
+  return PROTECTED_PREFIXES.some(
+    (prefix) => pathname === prefix || pathname.startsWith(prefix + '/')
+  )
+}
+
 export async function middleware(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
     request,
@@ -27,22 +61,21 @@ export async function middleware(request: NextRequest) {
     }
   )
 
-  // Refresh session — this is required for Server Components to read the session
+  // Refresh session — required so Server Components can read it
   const { data: { user } } = await supabase.auth.getUser()
 
-  // Public routes that don't require auth
-  const publicPaths = ['/login', '/signup', '/auth/callback', '/auth/confirm']
-  const isPublicPath = publicPaths.some(path => request.nextUrl.pathname.startsWith(path))
+  const pathname = request.nextUrl.pathname
 
-  // If no user and trying to access protected route, redirect to login
-  if (!user && !isPublicPath) {
+  // Unauthenticated user trying to access a dashboard route → /login
+  if (!user && isProtectedPath(pathname)) {
     const url = request.nextUrl.clone()
     url.pathname = '/login'
+    url.searchParams.set('next', pathname)
     return NextResponse.redirect(url)
   }
 
-  // If user is logged in and trying to access login/signup, redirect to dashboard
-  if (user && (request.nextUrl.pathname === '/login' || request.nextUrl.pathname === '/signup')) {
+  // Authenticated user landing on login/signup → /dashboard
+  if (user && (pathname === '/login' || pathname === '/signup')) {
     const url = request.nextUrl.clone()
     url.pathname = '/dashboard'
     return NextResponse.redirect(url)
