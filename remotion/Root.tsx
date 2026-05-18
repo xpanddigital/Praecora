@@ -1,7 +1,7 @@
 import React from 'react'
 import { Composition } from 'remotion'
 import { AnatomyOfDeal, ANATOMY_DURATION_FRAMES, ANATOMY_FPS } from './AnatomyOfDeal/Composition'
-import { FourWeeksOfPrep, FWP_DURATION_FRAMES, FWP_FPS } from './FourWeeksOfPrep/Composition'
+import { FourWeeksOfPrepV2, FWP_V2_DURATION_FRAMES, FWP_V2_FPS } from './FourWeeksOfPrepV2/Composition'
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -16,9 +16,9 @@ export const RemotionRoot: React.FC = () => {
       />
       <Composition
         id="FourWeeksOfPrep"
-        component={FourWeeksOfPrep}
-        durationInFrames={FWP_DURATION_FRAMES}
-        fps={FWP_FPS}
+        component={FourWeeksOfPrepV2}
+        durationInFrames={FWP_V2_DURATION_FRAMES}
+        fps={FWP_V2_FPS}
         width={1920}
         height={1080}
       />

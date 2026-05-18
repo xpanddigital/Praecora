@@ -1,48 +1,40 @@
 import React from 'react'
-import {
-  AbsoluteFill,
-  OffthreadVideo,
-  interpolate,
-  spring,
-  useCurrentFrame,
-  useVideoConfig,
-} from 'remotion'
+import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion'
 
-type SceneProps = {
-  src: string
-  startFrom: number
+type Props = {
   weekNumber: 1 | 2 | 3 | 4
   weekLabel: string
   headline: string
   calloutLabel: string
   calloutSublabel: string
-  /** Highlights this scene's progress dot in yellow (used for the launch scene) */
+  /** Highlights this scene's callout dot in yellow (used for the LIVE scene) */
   calloutAccent?: boolean
+  children?: React.ReactNode
 }
 
 /**
- * Scene with motion-graphics overlay layer for "pop":
- *   - Top progress bar showing 1/4 → 4/4 (this scene highlighted)
- *   - UI callout box in the upper right (designer annotation pointing at the action)
- *   - Bottom-left week label + headline caption
- *   - Animated checkmarks for completed weeks
- *   - Cross-fade in/out at scene boundaries
+ * Shared chrome around each motion-graphics scene:
+ *   - Top: 4-step progress bar (current week highlighted in rust)
+ *   - Right-side: glassy UI callout box describing this week's action
+ *   - Bottom-left: rust hairline + WEEK label + 72pt caption
+ *   - Subtle scene fade-in/fade-out at boundaries
+ *
+ * The {children} slot is where the per-week animation lives.
  */
-export const Scene: React.FC<SceneProps> = ({
-  src,
-  startFrom,
+export const SceneChrome: React.FC<Props> = ({
   weekNumber,
   weekLabel,
   headline,
   calloutLabel,
   calloutSublabel,
   calloutAccent = false,
+  children,
 }) => {
   const frame = useCurrentFrame()
   const { fps, durationInFrames } = useVideoConfig()
 
-  // Video cross-fade (6 frames each side)
-  const videoOpacity = interpolate(
+  // Scene fade in/out at boundaries
+  const sceneOpacity = interpolate(
     frame,
     [0, 6, durationInFrames - 6, durationInFrames],
     [0, 1, 1, 0],
@@ -52,20 +44,18 @@ export const Scene: React.FC<SceneProps> = ({
   // Caption fade-up
   const captionOpacity = interpolate(
     frame,
-    [18, 28, durationInFrames - 12, durationInFrames - 6],
+    [22, 32, durationInFrames - 12, durationInFrames - 6],
     [0, 1, 1, 0],
     { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
   )
-  const captionTranslate = interpolate(
-    frame,
-    [18, 32],
-    [16, 0],
-    { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
-  )
+  const captionTranslate = interpolate(frame, [22, 36], [16, 0], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+  })
 
-  // UI callout — appears slightly later than the caption, slides in from right
+  // Callout spring entrance
   const calloutSpring = spring({
-    frame: frame - 24,
+    frame: frame - 30,
     fps,
     config: { damping: 14, mass: 0.7 },
     from: 0,
@@ -73,45 +63,36 @@ export const Scene: React.FC<SceneProps> = ({
   })
   const calloutOpacity = interpolate(
     frame,
-    [24, 36, durationInFrames - 12, durationInFrames - 6],
+    [30, 44, durationInFrames - 12, durationInFrames - 6],
     [0, 1, 1, 0],
     { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
   )
 
-  // Progress dots — fully visible throughout
+  // Progress bar fade-in
   const progressOpacity = interpolate(
     frame,
-    [0, 8, durationInFrames - 6, durationInFrames],
+    [0, 10, durationInFrames - 6, durationInFrames],
     [0, 1, 1, 0],
     { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
   )
 
   return (
-    <AbsoluteFill style={{ backgroundColor: '#0f0d08' }}>
-      {/* Source video */}
-      <AbsoluteFill style={{ opacity: videoOpacity }}>
-        <OffthreadVideo
-          src={src}
-          startFrom={startFrom}
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-          }}
-          muted
-        />
-      </AbsoluteFill>
-
-      {/* Warm tonal vignette */}
+    <AbsoluteFill style={{ opacity: sceneOpacity }}>
+      {/* Subtle grid texture background — very low opacity */}
       <AbsoluteFill
         style={{
-          background:
-            'radial-gradient(ellipse 100% 80% at 50% 50%, transparent 50%, rgba(15, 13, 8, 0.4) 100%)',
+          backgroundImage:
+            'linear-gradient(rgba(250, 250, 249, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(250, 250, 249, 0.02) 1px, transparent 1px)',
+          backgroundSize: '48px 48px',
+          backgroundPosition: '-1px -1px',
           pointerEvents: 'none',
         }}
       />
 
-      {/* TOP — progress bar (4 segments, current week highlighted in rust) */}
+      {/* Animated scene content (per-week) */}
+      <AbsoluteFill>{children}</AbsoluteFill>
+
+      {/* TOP — 4-step progress bar */}
       <div
         style={{
           position: 'absolute',
@@ -122,6 +103,7 @@ export const Scene: React.FC<SceneProps> = ({
           alignItems: 'center',
           gap: 16,
           opacity: progressOpacity,
+          zIndex: 20,
         }}
       >
         {[1, 2, 3, 4].map((w) => {
@@ -137,34 +119,30 @@ export const Scene: React.FC<SceneProps> = ({
                 flex: 1,
               }}
             >
-              {/* Week dot */}
               <div
                 style={{
-                  position: 'relative',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  width: 28,
-                  height: 28,
+                  width: 30,
+                  height: 30,
                   borderRadius: '50%',
                   backgroundColor: isCurrent
                     ? '#b8531d'
                     : isComplete
                     ? 'rgba(184, 83, 29, 0.4)'
-                    : 'rgba(250, 250, 249, 0.15)',
+                    : 'rgba(250, 250, 249, 0.12)',
                   border: isCurrent
                     ? '2px solid #fafaf9'
-                    : '2px solid rgba(250, 250, 249, 0.3)',
+                    : '2px solid rgba(250, 250, 249, 0.25)',
                   fontFamily: '"DM Sans", sans-serif',
                   fontWeight: 700,
-                  fontSize: 12,
+                  fontSize: 13,
                   color: '#fafaf9',
-                  transition: 'background-color 0.3s',
                 }}
               >
                 {isComplete ? '✓' : w}
               </div>
-              {/* Connector line */}
               {w < 4 && (
                 <div
                   style={{
@@ -173,7 +151,7 @@ export const Scene: React.FC<SceneProps> = ({
                     backgroundColor:
                       isComplete || isCurrent
                         ? '#b8531d'
-                        : 'rgba(250, 250, 249, 0.2)',
+                        : 'rgba(250, 250, 249, 0.18)',
                     borderRadius: 1,
                     opacity: isComplete ? 0.6 : isCurrent ? 0.4 : 1,
                   }}
@@ -184,7 +162,7 @@ export const Scene: React.FC<SceneProps> = ({
         })}
       </div>
 
-      {/* UPPER-RIGHT — UI callout annotation */}
+      {/* UPPER-RIGHT — UI callout */}
       <div
         style={{
           position: 'absolute',
@@ -193,6 +171,7 @@ export const Scene: React.FC<SceneProps> = ({
           opacity: calloutOpacity,
           transform: `translateX(${interpolate(calloutSpring, [0, 1], [40, 0])}px) scale(${interpolate(calloutSpring, [0, 1], [0.95, 1])})`,
           transformOrigin: 'right center',
+          zIndex: 20,
         }}
       >
         <div
@@ -200,7 +179,7 @@ export const Scene: React.FC<SceneProps> = ({
             display: 'flex',
             alignItems: 'center',
             gap: 14,
-            background: 'rgba(15, 13, 8, 0.7)',
+            background: 'rgba(15, 13, 8, 0.75)',
             backdropFilter: 'blur(12px)',
             border: '1px solid rgba(250, 250, 249, 0.12)',
             borderRadius: 12,
@@ -208,10 +187,8 @@ export const Scene: React.FC<SceneProps> = ({
             boxShadow: '0 12px 32px -8px rgba(0,0,0,0.5)',
           }}
         >
-          {/* Status dot */}
           <div
             style={{
-              position: 'relative',
               width: 10,
               height: 10,
               borderRadius: '50%',
@@ -248,18 +225,18 @@ export const Scene: React.FC<SceneProps> = ({
         </div>
       </div>
 
-      {/* BOTTOM-LEFT — week label + headline caption */}
+      {/* BOTTOM-LEFT — week label + headline */}
       <div
         style={{
           position: 'absolute',
-          bottom: 96,
-          left: 96,
+          bottom: 80,
+          left: 80,
           maxWidth: 960,
           opacity: captionOpacity,
           transform: `translateY(${captionTranslate}px)`,
+          zIndex: 20,
         }}
       >
-        {/* Rust hairline */}
         <div
           style={{
             width: 72,
@@ -269,7 +246,6 @@ export const Scene: React.FC<SceneProps> = ({
             borderRadius: 1.5,
           }}
         />
-        {/* Week label */}
         <div
           style={{
             fontFamily: '"DM Sans", sans-serif',
@@ -284,7 +260,6 @@ export const Scene: React.FC<SceneProps> = ({
         >
           {weekLabel}
         </div>
-        {/* Headline */}
         <div
           style={{
             fontFamily: '"DM Sans", sans-serif',
