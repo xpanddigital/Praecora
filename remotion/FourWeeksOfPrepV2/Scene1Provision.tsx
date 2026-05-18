@@ -4,20 +4,18 @@ import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } fr
 /**
  * WEEK 1 — Account preparation begins.
  *
- * Visual: 5 alias account cards animate in (staggered), each provisioning
- * from empty → ready. Connecting lines draw between them showing the
- * unified-presence concept. Status text types on at top.
+ * Visual: 3 LARGE alias account cards animate in (staggered), each
+ * provisioning from empty → ready. Sized to fill the frame so they're
+ * legible at hero playback size (~600px wide).
  */
 export const Scene1Provision: React.FC = () => {
   const frame = useCurrentFrame()
   const { fps } = useVideoConfig()
 
   const ACCOUNTS = [
-    { handle: 'studio.signals', delay: 12 },
-    { handle: 'late.crate.audio', delay: 18 },
-    { handle: 'noon.records', delay: 24 },
-    { handle: 'mira.session', delay: 30 },
-    { handle: 'archive.acoustic', delay: 36 },
+    { handle: 'studio.signals', delay: 14 },
+    { handle: 'late.crate.audio', delay: 22 },
+    { handle: 'noon.records', delay: 30 },
   ]
 
   return (
@@ -26,18 +24,16 @@ export const Scene1Provision: React.FC = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        paddingTop: 100,
       }}
     >
-      {/* Card group container */}
       <div
         style={{
           display: 'flex',
-          gap: 28,
-          position: 'relative',
+          gap: 48,
         }}
       >
         {ACCOUNTS.map((acc, i) => {
-          // Card entrance spring
           const cardSpring = spring({
             frame: frame - acc.delay,
             fps,
@@ -50,16 +46,12 @@ export const Scene1Provision: React.FC = () => {
             extrapolateRight: 'clamp',
           })
 
-          // Each card transitions from "provisioning" (rust pulse) → "ready" (green dot)
-          // ~30 frames after entrance
-          const readyFrame = acc.delay + 30
+          const readyFrame = acc.delay + 32
           const isReady = frame >= readyFrame
           const readyTransition = interpolate(frame, [readyFrame, readyFrame + 8], [0, 1], {
             extrapolateLeft: 'clamp',
             extrapolateRight: 'clamp',
           })
-
-          // Provisioning pulse opacity (while not yet ready)
           const provisioningPulse = isReady
             ? 0
             : 0.5 + 0.5 * Math.sin((frame - acc.delay) * 0.4)
@@ -69,51 +61,49 @@ export const Scene1Provision: React.FC = () => {
               key={acc.handle}
               style={{
                 opacity: cardOpacity,
-                transform: `translateY(${interpolate(cardSpring, [0, 1], [40, 0])}px) scale(${interpolate(cardSpring, [0, 1], [0.85, 1])})`,
+                transform: `translateY(${interpolate(cardSpring, [0, 1], [60, 0])}px) scale(${interpolate(cardSpring, [0, 1], [0.85, 1])})`,
                 transformOrigin: 'center',
-                width: 180,
-                background: 'linear-gradient(180deg, rgba(250, 250, 249, 0.06), rgba(250, 250, 249, 0.02))',
-                border: '1px solid rgba(250, 250, 249, 0.12)',
-                borderRadius: 16,
-                padding: '24px 20px',
+                width: 380,
+                background: 'linear-gradient(180deg, rgba(250, 250, 249, 0.08), rgba(250, 250, 249, 0.03))',
+                border: '2px solid rgba(250, 250, 249, 0.15)',
+                borderRadius: 24,
+                padding: '48px 36px',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                gap: 12,
-                position: 'relative',
+                gap: 24,
+                boxShadow: '0 24px 64px -16px rgba(0, 0, 0, 0.4)',
               }}
             >
-              {/* Avatar circle */}
+              {/* Avatar circle — much larger */}
               <div
                 style={{
                   position: 'relative',
-                  width: 64,
-                  height: 64,
+                  width: 140,
+                  height: 140,
                   borderRadius: '50%',
                   background: 'linear-gradient(135deg, #b8531d 0%, #e8ff47 100%)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   fontFamily: '"DM Sans", sans-serif',
-                  fontSize: 24,
+                  fontSize: 56,
                   fontWeight: 700,
                   color: '#0f0d08',
                   opacity: 0.4 + 0.6 * readyTransition,
-                  transition: 'opacity 0.3s',
                 }}
               >
                 {acc.handle[0].toUpperCase()}
-                {/* Status dot */}
                 <div
                   style={{
                     position: 'absolute',
-                    bottom: 0,
-                    right: 0,
-                    width: 16,
-                    height: 16,
+                    bottom: 4,
+                    right: 4,
+                    width: 32,
+                    height: 32,
                     borderRadius: '50%',
                     backgroundColor: isReady ? '#10b981' : '#b8531d',
-                    border: '3px solid #0f0d08',
+                    border: '5px solid #0f0d08',
                     opacity: isReady ? 1 : provisioningPulse,
                   }}
                 />
@@ -123,27 +113,27 @@ export const Scene1Provision: React.FC = () => {
               <div
                 style={{
                   fontFamily: '"JetBrains Mono", monospace',
-                  fontSize: 13,
-                  color: 'rgba(250, 250, 249, 0.85)',
+                  fontSize: 26,
+                  color: 'rgba(250, 250, 249, 0.9)',
                   fontWeight: 500,
                 }}
               >
                 @{acc.handle}
               </div>
 
-              {/* Status badge */}
+              {/* Status badge — much bigger */}
               <div
                 style={{
                   fontFamily: '"DM Sans", sans-serif',
-                  fontSize: 9,
+                  fontSize: 18,
                   fontWeight: 700,
-                  letterSpacing: '0.15em',
+                  letterSpacing: '0.18em',
                   textTransform: 'uppercase',
                   color: isReady ? '#10b981' : '#b8531d',
-                  padding: '4px 8px',
-                  borderRadius: 4,
-                  background: isReady ? 'rgba(16, 185, 129, 0.12)' : 'rgba(184, 83, 29, 0.12)',
-                  border: `1px solid ${isReady ? 'rgba(16, 185, 129, 0.3)' : 'rgba(184, 83, 29, 0.3)'}`,
+                  padding: '10px 18px',
+                  borderRadius: 8,
+                  background: isReady ? 'rgba(16, 185, 129, 0.14)' : 'rgba(184, 83, 29, 0.14)',
+                  border: `2px solid ${isReady ? 'rgba(16, 185, 129, 0.35)' : 'rgba(184, 83, 29, 0.35)'}`,
                 }}
               >
                 {isReady ? 'READY' : 'PROVISIONING'}

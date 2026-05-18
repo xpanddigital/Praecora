@@ -4,24 +4,21 @@ import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } fr
 /**
  * WEEK 3 — Quality checks. Inbox ready.
  *
- * Visual: A unified inbox mockup with multiple rows. Each row passes a quality
- * check (rust dot → green ✓) in sequence. Finally a big "READY" badge stamps
- * in at the bottom right.
+ * Visual: A LARGE unified inbox panel filling most of the safe content area.
+ * 4 rows (was 6) but each row much taller. Each row's status circle
+ * transitions rust → green ✓ in sequence. Big READY stamp at the end.
  */
 export const Scene3Inbox: React.FC = () => {
   const frame = useCurrentFrame()
   const { fps } = useVideoConfig()
 
   const ROWS = [
-    { channel: 'ig', sender: '@studio.signals', preview: 'reply routing', check: 18 },
-    { channel: 'em', sender: 'manager@maple-cuts.co', preview: 'deliverability', check: 26 },
-    { channel: 'ig', sender: '@late.crate.audio', preview: 'reply classifier', check: 34 },
-    { channel: 'em', sender: 'a&r@nightshore.io', preview: 'follow-up sequence', check: 42 },
-    { channel: 'ig', sender: '@noon.records', preview: 'AI reply suggester', check: 50 },
-    { channel: 'em', sender: 'team@steeple-music.com', preview: 'send rate limits', check: 58 },
+    { channel: 'ig', sender: '@studio.signals', preview: 'Reply routing', check: 20 },
+    { channel: 'em', sender: 'manager@maple-cuts.co', preview: 'Deliverability', check: 32 },
+    { channel: 'ig', sender: '@late.crate.audio', preview: 'AI classifier', check: 44 },
+    { channel: 'em', sender: 'a&r@nightshore.io', preview: 'Send rate limits', check: 56 },
   ]
 
-  // Inbox panel entrance
   const panelSpring = spring({
     frame,
     fps,
@@ -30,7 +27,6 @@ export const Scene3Inbox: React.FC = () => {
     to: 1,
   })
 
-  // READY stamp
   const readyFrame = 78
   const readySpring = spring({
     frame: frame - readyFrame,
@@ -50,18 +46,20 @@ export const Scene3Inbox: React.FC = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        paddingTop: 100,
       }}
     >
       <div
         style={{
           position: 'relative',
-          width: 800,
-          background: 'linear-gradient(180deg, rgba(250, 250, 249, 0.06), rgba(250, 250, 249, 0.02))',
-          border: '1px solid rgba(250, 250, 249, 0.12)',
-          borderRadius: 16,
-          padding: 32,
+          width: 1280,
+          background: 'linear-gradient(180deg, rgba(250, 250, 249, 0.08), rgba(250, 250, 249, 0.03))',
+          border: '2px solid rgba(250, 250, 249, 0.15)',
+          borderRadius: 24,
+          padding: 44,
           opacity: interpolate(frame, [0, 12], [0, 1], { extrapolateRight: 'clamp' }),
           transform: `scale(${interpolate(panelSpring, [0, 1], [0.96, 1])})`,
+          boxShadow: '0 24px 64px -16px rgba(0, 0, 0, 0.4)',
         }}
       >
         {/* Panel header */}
@@ -70,25 +68,25 @@ export const Scene3Inbox: React.FC = () => {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            marginBottom: 24,
+            marginBottom: 32,
           }}
         >
           <div
             style={{
               fontFamily: '"DM Sans", sans-serif',
-              fontSize: 12,
+              fontSize: 22,
               fontWeight: 700,
               letterSpacing: '0.2em',
               textTransform: 'uppercase',
-              color: 'rgba(250, 250, 249, 0.5)',
+              color: 'rgba(250, 250, 249, 0.6)',
             }}
           >
-            Inbox QA — 6 checks
+            Inbox QA — 4 checks
           </div>
           <div
             style={{
               fontFamily: '"JetBrains Mono", monospace',
-              fontSize: 12,
+              fontSize: 20,
               color: 'rgba(250, 250, 249, 0.4)',
             }}
           >
@@ -97,7 +95,7 @@ export const Scene3Inbox: React.FC = () => {
         </div>
 
         {/* Rows */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           {ROWS.map((row, i) => {
             const isChecked = frame >= row.check
             const checkTransition = interpolate(frame, [row.check, row.check + 6], [0, 1], {
@@ -112,19 +110,19 @@ export const Scene3Inbox: React.FC = () => {
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: 14,
-                  padding: '14px 16px',
-                  background: 'rgba(15, 13, 8, 0.5)',
-                  borderRadius: 10,
-                  border: '1px solid rgba(250, 250, 249, 0.06)',
+                  gap: 24,
+                  padding: '22px 28px',
+                  background: 'rgba(15, 13, 8, 0.6)',
+                  borderRadius: 14,
+                  border: '1px solid rgba(250, 250, 249, 0.08)',
                 }}
               >
-                {/* Status circle */}
+                {/* Status circle — larger */}
                 <div
                   style={{
                     position: 'relative',
-                    width: 28,
-                    height: 28,
+                    width: 48,
+                    height: 48,
                     borderRadius: '50%',
                     backgroundColor: isChecked ? '#10b981' : '#b8531d',
                     display: 'flex',
@@ -137,8 +135,8 @@ export const Scene3Inbox: React.FC = () => {
                 >
                   {isChecked && (
                     <svg
-                      width="14"
-                      height="14"
+                      width="24"
+                      height="24"
                       viewBox="0 0 14 14"
                       fill="none"
                       style={{ opacity: checkTransition }}
@@ -157,9 +155,9 @@ export const Scene3Inbox: React.FC = () => {
                 {/* Channel badge */}
                 <div
                   style={{
-                    width: 28,
-                    height: 28,
-                    borderRadius: 6,
+                    width: 44,
+                    height: 44,
+                    borderRadius: 10,
                     background:
                       row.channel === 'ig'
                         ? 'linear-gradient(135deg, #ec4899, #f97316)'
@@ -172,9 +170,9 @@ export const Scene3Inbox: React.FC = () => {
                 <div
                   style={{
                     fontFamily: '"JetBrains Mono", monospace',
-                    fontSize: 13,
-                    color: 'rgba(250, 250, 249, 0.85)',
-                    width: 240,
+                    fontSize: 22,
+                    color: 'rgba(250, 250, 249, 0.9)',
+                    width: 380,
                   }}
                 >
                   {row.sender}
@@ -184,8 +182,8 @@ export const Scene3Inbox: React.FC = () => {
                 <div
                   style={{
                     fontFamily: '"DM Sans", sans-serif',
-                    fontSize: 13,
-                    color: 'rgba(250, 250, 249, 0.5)',
+                    fontSize: 22,
+                    color: 'rgba(250, 250, 249, 0.55)',
                     flex: 1,
                   }}
                 >
@@ -196,7 +194,7 @@ export const Scene3Inbox: React.FC = () => {
                 <div
                   style={{
                     fontFamily: '"DM Sans", sans-serif',
-                    fontSize: 10,
+                    fontSize: 18,
                     fontWeight: 700,
                     letterSpacing: '0.15em',
                     textTransform: 'uppercase',
@@ -210,26 +208,26 @@ export const Scene3Inbox: React.FC = () => {
           })}
         </div>
 
-        {/* READY stamp — appears after all checks pass */}
+        {/* READY stamp — larger */}
         <div
           style={{
             position: 'absolute',
-            bottom: -28,
-            right: 32,
+            bottom: -40,
+            right: 44,
             opacity: readyOpacity,
             transform: `scale(${interpolate(readySpring, [0, 1], [0.6, 1])}) rotate(${interpolate(readySpring, [0, 1], [-8, -4])}deg)`,
             transformOrigin: 'center',
-            padding: '14px 28px',
+            padding: '22px 44px',
             background: 'linear-gradient(135deg, #10b981, #059669)',
-            border: '3px solid rgba(250, 250, 249, 0.4)',
-            borderRadius: 12,
-            boxShadow: '0 12px 32px -8px rgba(16, 185, 129, 0.5), 0 0 0 4px rgba(15, 13, 8, 1)',
+            border: '4px solid rgba(250, 250, 249, 0.4)',
+            borderRadius: 16,
+            boxShadow: '0 16px 48px -12px rgba(16, 185, 129, 0.6), 0 0 0 6px rgba(15, 13, 8, 1)',
           }}
         >
           <div
             style={{
               fontFamily: '"DM Sans", sans-serif',
-              fontSize: 22,
+              fontSize: 34,
               fontWeight: 700,
               letterSpacing: '0.2em',
               color: '#fafaf9',
