@@ -1,7 +1,6 @@
 import Link from 'next/link'
-import { ArrowRight, Calendar, Eye, MessageSquare } from 'lucide-react'
+import { ArrowRight, Calendar } from 'lucide-react'
 import { Eyebrow } from '@/components/marketing/Ornament'
-import { HeroVideoPlayer } from '@/components/marketing/HeroVideoPlayer'
 
 export const metadata = {
   title: 'Book a demo — Praecora',
@@ -9,15 +8,33 @@ export const metadata = {
     'See the platform with a real (anonymized) scout\'s inbox. 20 minutes, no slides.',
 }
 
+const AGENDA = [
+  {
+    n: '01',
+    title: 'Live inbox tour',
+    body: 'A real (anonymized) scout\'s Praecora inbox — see AI-classified replies, suggested responses, and one-click reply flow.',
+  },
+  {
+    n: '02',
+    title: 'Your numbers',
+    body: 'Bring your current pipeline and volume. We\'ll walk through which tier fits and what your first 90 days could look like.',
+  },
+  {
+    n: '03',
+    title: 'Q&A + next steps',
+    body: 'No slides. No pitch deck. No follow-up sequences. You decide on the call or email when you\'re ready.',
+  },
+]
+
 export default function DemoPage() {
   return (
     <>
-      {/* HERO — split layout: text left, video right */}
+      {/* HERO — split layout: text + CTA left, agenda panel right */}
       <section className="marketing-hero-bg px-4 pt-16 pb-20 md:px-6 md:pt-20 md:pb-24 lg:pt-24">
         <div className="mx-auto w-full max-w-7xl">
-          <div className="grid items-center gap-12 md:grid-cols-2 md:gap-12 lg:gap-16">
-            {/* LEFT — text */}
-            <div className="text-center md:text-left">
+          <div className="grid items-start gap-12 md:grid-cols-[1fr_1.05fr] md:gap-12 lg:gap-16">
+            {/* LEFT — text + CTAs */}
+            <div className="text-center md:pt-6 md:text-left">
               <div className="mb-6 flex justify-center md:justify-start">
                 <Eyebrow>Demo</Eyebrow>
               </div>
@@ -25,8 +42,9 @@ export default function DemoPage() {
                 See it live. 20 minutes. No slides.
               </h1>
               <p className="mx-auto mt-6 max-w-xl text-balance text-base leading-relaxed text-neutral-600 md:mx-0 md:mt-8 md:text-lg">
-                We'll walk through a real (anonymized) scout's inbox so you can see exactly
-                what your day-to-day looks like inside Praecora.
+                A real, working walkthrough of Praecora on your operation. Bring your
+                numbers — leave with a clear answer on which tier fits and what your
+                first 90 days look like.
               </p>
               <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center md:mt-10 md:justify-start">
                 <a
@@ -41,69 +59,70 @@ export default function DemoPage() {
               </div>
             </div>
 
-            {/* RIGHT — Demo Experience video teaser */}
+            {/* RIGHT — Demo agenda panel (replaces video) */}
             <div className="mx-auto w-full max-w-xl md:max-w-none">
-              <HeroVideoPlayer
-                teaserSrc="/videos/demo-experience-teaser.mp4"
-                fullSrc="/videos/demo-experience.mp4"
-                posterSrc="/videos/demo-experience-poster.jpg"
-                caption="Watch — Before your demo"
-              />
+              <div className="marketing-mock-panel p-8 md:p-10">
+                {/* Panel header */}
+                <div className="mb-8 flex items-center justify-between border-b border-black/10 pb-5">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
+                    20-min walkthrough
+                  </p>
+                  <p className="inline-flex items-center gap-2 text-xs font-medium text-[#0f0d08]">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)]" />
+                    Booking now
+                  </p>
+                </div>
+
+                {/* Agenda items */}
+                <div className="space-y-7">
+                  {AGENDA.map((item, i) => (
+                    <div key={item.n} className="flex gap-5">
+                      <div className="shrink-0">
+                        <div className="font-mono text-2xl font-medium text-rust opacity-80">
+                          {item.n}
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-base font-semibold text-[#0f0d08] md:text-lg">
+                          {item.title}
+                        </h3>
+                        <p className="mt-1.5 text-sm leading-relaxed text-neutral-600 md:text-[15px]">
+                          {item.body}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Bottom strip — reinforces the no-pressure promise */}
+                <div className="mt-8 border-t border-black/10 pt-5">
+                  <div className="flex items-center gap-3 text-xs text-neutral-500">
+                    <span className="h-px w-8 bg-rust" />
+                    <span>
+                      No slides. No pressure. No follow-up sequences.
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="border-t border-black/5 bg-white px-4 py-16 md:px-6 md:py-20">
-        <div className="mx-auto w-full max-w-4xl">
-          <div className="grid gap-8 md:grid-cols-3">
-            {[
-              {
-                icon: Eye,
-                title: 'Live platform tour',
-                body: 'You see the actual Praecora inbox, AI reply suggestions, and pipeline. Not screenshots.',
-              },
-              {
-                icon: MessageSquare,
-                title: 'Your specific use case',
-                body: 'Bring your numbers. We\'ll talk through volume, current pipeline, and which tier makes sense.',
-              },
-              {
-                icon: Calendar,
-                title: 'No pressure, no follow-up spam',
-                body: 'You decide on the call or email us when ready. We won\'t hound you with sequences.',
-              },
-            ].map((item) => {
-              const Icon = item.icon
-              return (
-                <div key={item.title}>
-                  <Icon className="h-6 w-6 text-neutral-950" />
-                  <h3 className="mt-4 text-base font-semibold text-neutral-950">
-                    {item.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-neutral-600">
-                    {item.body}
-                  </p>
-                </div>
-              )
-            })}
-          </div>
-        </div>
-      </section>
-
       {/* CALENDAR PLACEHOLDER */}
-      <section className="border-t border-black/5 px-4 py-16 md:px-6 md:py-20">
+      <section className="border-t border-black/5 bg-white px-4 py-16 md:px-6 md:py-20">
         <div className="mx-auto w-full max-w-3xl text-center">
-          <h2 className="text-balance text-3xl font-bold tracking-tight text-neutral-950 md:text-4xl">
+          <h2 className="text-balance text-3xl font-bold tracking-tight text-[#0f0d08] md:text-4xl">
             Pick a time
           </h2>
           <p className="mt-4 text-sm text-neutral-500">
-            (Calendar embed loads here once configured.)
+            Calendar embed loads here once configured. For now, email gets you on the
+            same call within 24 hours.
           </p>
 
           <div className="mx-auto mt-10 max-w-md rounded-xl border border-dashed border-neutral-300 bg-white p-12">
             <Calendar className="mx-auto h-10 w-10 text-neutral-400" />
-            <p className="mt-4 text-sm font-medium text-neutral-950">
+            <p className="mt-4 text-sm font-medium text-[#0f0d08]">
               Demo booking integration coming soon.
             </p>
             <p className="mt-2 text-xs text-neutral-500">
@@ -111,7 +130,7 @@ export default function DemoPage() {
             </p>
             <a
               href="mailto:demo@praecora.com?subject=Praecora%20Demo%20Request"
-              className="mt-6 inline-flex items-center gap-2 rounded-lg bg-neutral-950 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-neutral-800"
+              className="mt-6 inline-flex items-center gap-2 rounded-lg bg-[#0f0d08] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-neutral-800"
             >
               Email to schedule <ArrowRight className="h-4 w-4" />
             </a>
@@ -119,12 +138,12 @@ export default function DemoPage() {
         </div>
       </section>
 
-      <section className="border-t border-black/5 bg-white px-4 py-16 md:px-6">
+      <section className="border-t border-black/5 px-4 py-16 md:px-6">
         <div className="mx-auto w-full max-w-3xl text-center">
           <p className="text-sm text-neutral-500">Already know what you need?</p>
           <Link
             href="/pricing"
-            className="mt-4 inline-flex items-center gap-2 text-base font-medium text-neutral-950 hover:underline"
+            className="mt-4 inline-flex items-center gap-2 text-base font-medium text-[#0f0d08] hover:underline"
           >
             Skip the call and pick a tier <ArrowRight className="h-4 w-4" />
           </Link>
