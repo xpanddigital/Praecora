@@ -1,38 +1,183 @@
-/* Light-theme overrides scoped to marketing routes only.
-   Dashboard + auth keep their dark theme intact. */
+/* ──────────────────────────────────────────────────────────────────
+   Praecora — light-theme tokens scoped to marketing routes.
+   Dashboard + auth retain their dark theme.
+   ────────────────────────────────────────────────────────────────── */
 
 .marketing-light {
-  background-color: #fafaf9;
-  color: #0a0a0a;
+  /* Warm ivory background — slightly warmer than cool neutral.
+     The warmth reads as "human" / "considered" vs cold neutral. */
+  background-color: #faf8f3;
+  color: #0f0d08;
   font-family: var(--font-body), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 .marketing-light * {
-  border-color: rgba(0, 0, 0, 0.08);
+  border-color: rgba(15, 13, 8, 0.08);
 }
 
-/* Subtle warm gradient accent for hero backgrounds */
+/* ─── Hero gradient — warmer, more present ─── */
 .marketing-hero-bg {
-  background: radial-gradient(
-    ellipse at top,
-    rgba(232, 255, 71, 0.12),
-    transparent 50%
-  ),
-  linear-gradient(to bottom, #fafaf9, #ffffff);
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(232, 255, 71, 0.18), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 50% 100%, rgba(184, 83, 29, 0.04), transparent 60%),
+    linear-gradient(to bottom, #faf8f3 0%, #ffffff 100%);
 }
 
-/* Section dividers — barely visible warm gray */
+/* ─── Section divider — barely-there warm gray ─── */
 .marketing-section-divider {
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  border-top: 1px solid rgba(15, 13, 8, 0.06);
 }
 
-/* Mock UI panels — shadow + border for depth on light bg */
+/* ─── Mock UI panels — refined elevation ─── */
 .marketing-mock-panel {
   background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(15, 13, 8, 0.08);
+  border-radius: 14px;
   box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.04),
-    0 8px 24px -8px rgba(0, 0, 0, 0.08),
-    0 24px 48px -16px rgba(0, 0, 0, 0.06);
-  border-radius: 12px;
+    0 1px 2px rgba(15, 13, 8, 0.04),
+    0 12px 32px -12px rgba(15, 13, 8, 0.10),
+    0 32px 64px -24px rgba(184, 83, 29, 0.06);
+  transition: box-shadow 0.4s ease, transform 0.4s ease;
+}
+.marketing-mock-panel:hover {
+  box-shadow:
+    0 2px 4px rgba(15, 13, 8, 0.06),
+    0 20px 48px -16px rgba(15, 13, 8, 0.14),
+    0 40px 80px -32px rgba(184, 83, 29, 0.10);
+}
+
+/* ─── Praecora rust accent — used sparingly for "heart" moments ─── */
+.text-rust {
+  color: #b8531d;
+}
+.text-rust-deep {
+  color: #7a2a0f;
+}
+.bg-rust-soft {
+  background-color: #fdf1ea;
+}
+.border-rust {
+  border-color: rgba(184, 83, 29, 0.3);
+}
+
+/* ─── Editorial section eyebrow — tighter, with leading dash ─── */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #525252;
+}
+.eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background-color: #b8531d;
+}
+
+/* ─── Founder note centerpiece treatment ─── */
+.founder-note-bg {
+  position: relative;
+  overflow: hidden;
+}
+.founder-note-watermark {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+.founder-note-watermark span {
+  font-family: var(--font-heading), Georgia, serif;
+  font-style: italic;
+  font-size: 28rem;
+  font-weight: 600;
+  color: #b8531d;
+  opacity: 0.025;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  transform: translateY(-2%);
+}
+@media (max-width: 768px) {
+  .founder-note-watermark span {
+    font-size: 16rem;
+  }
+}
+
+/* ─── Classical printer's ornament — used between sections ─── */
+.ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  color: #b8531d;
+  opacity: 0.6;
+  font-family: var(--font-heading), Georgia, serif;
+  font-style: italic;
+  font-size: 1.5rem;
+  letter-spacing: 0.8em;
+  padding-left: 0.8em;
+}
+.ornament::before,
+.ornament::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 1px;
+  background-color: currentColor;
+  opacity: 0.5;
+}
+
+/* ─── Subtle typography refinements ─── */
+.marketing-light .tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Smooth scroll for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ─── CTA button — refined hover with subtle lift ─── */
+.cta-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 8px;
+  background-color: #0f0d08;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #ffffff;
+  transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+.cta-primary:hover {
+  background-color: #2a2620;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 16px -8px rgba(15, 13, 8, 0.3);
+}
+.cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid rgba(15, 13, 8, 0.15);
+  background-color: #ffffff;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #0f0d08;
+  transition: background-color 0.2s ease, transform 0.15s ease, border-color 0.2s ease;
+}
+.cta-secondary:hover {
+  background-color: #faf8f3;
+  border-color: rgba(15, 13, 8, 0.25);
+  transform: translateY(-1px);
 }

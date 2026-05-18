@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { ArrowRight, Calendar, Eye, MessageSquare } from 'lucide-react'
+import { Eyebrow } from '@/components/marketing/Ornament'
 
 export const metadata = {
   title: 'Book a demo — Praecora',
@@ -10,12 +11,12 @@ export const metadata = {
 export default function DemoPage() {
   return (
     <>
-      <section className="marketing-hero-bg px-4 pt-20 pb-12 md:px-6 md:pt-28 md:pb-16">
+      <section className="marketing-hero-bg px-4 pt-24 pb-16 md:px-6 md:pt-32 md:pb-20">
         <div className="mx-auto w-full max-w-3xl text-center">
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
-            Demo
-          </p>
-          <h1 className="text-balance text-5xl font-bold tracking-tight text-neutral-950 md:text-7xl">
+          <div className="mb-8 flex justify-center">
+            <Eyebrow>Demo</Eyebrow>
+          </div>
+          <h1 className="text-balance text-5xl font-bold leading-[1.05] tracking-tight text-[#0f0d08] md:text-7xl">
             See it live. 20 minutes. No slides.
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-neutral-600">
