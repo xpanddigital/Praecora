@@ -1,5 +1,5 @@
 import React from 'react'
-import { AbsoluteFill, Sequence } from 'remotion'
+import { AbsoluteFill, Audio, interpolate, Sequence, staticFile } from 'remotion'
 import { loadFont as loadDMSans } from '@remotion/google-fonts/DMSans'
 import { loadFont as loadCormorant } from '@remotion/google-fonts/CormorantGaramond'
 import { loadFont as loadJetBrains } from '@remotion/google-fonts/JetBrainsMono'
@@ -19,18 +19,43 @@ loadJetBrains('normal', { weights: ['400', '500', '600'] })
 //   Scene 2 : 4.0 - 8.0s  (120 frames)  WEEK 2 — Brand voice tuned. Content seeded.
 //   Scene 3 : 8.0 - 12.0s (120 frames)  WEEK 3 — Quality checks. Inbox ready.
 //   Scene 4 : 12.0 - 16.0s (120 frames) WEEK 4 — Outreach goes live.
-//   OUTRO   : 16.0 - 19.0s (90 frames)
-//   Total: 19s (570 frames)
+//   OUTRO   : 16.0 - 19.2s (96 frames)  Extended slightly for outro VO breathing room
+//   Total: 19.2s (576 frames)
 
 export const FWP_V2_FPS = 30
-export const FWP_V2_DURATION_FRAMES = 570
+export const FWP_V2_DURATION_FRAMES = 576
 
 const SCENE_FRAMES = 120
-const OUTRO_FRAMES = 90
+const OUTRO_FRAMES = 96
+const VO_DELAY = 12 // ~0.4s into each scene before voiceover starts
+const FADE_IN_FRAMES = 24 // 0.8s music fade-in
+const FADE_OUT_FRAMES = 24 // 0.8s music fade-out
+const MUSIC_VOLUME = 0.16 // background music level — quiet enough not to fight VO
+
+/**
+ * Music volume envelope — fades in over the first 24f, holds at
+ * MUSIC_VOLUME, fades out over the last 24f. Avoids hard cuts.
+ */
+const musicVolume = (frame: number) => {
+  if (frame < FADE_IN_FRAMES) {
+    return interpolate(frame, [0, FADE_IN_FRAMES], [0, MUSIC_VOLUME])
+  }
+  if (frame > FWP_V2_DURATION_FRAMES - FADE_OUT_FRAMES) {
+    return interpolate(
+      frame,
+      [FWP_V2_DURATION_FRAMES - FADE_OUT_FRAMES, FWP_V2_DURATION_FRAMES],
+      [MUSIC_VOLUME, 0]
+    )
+  }
+  return MUSIC_VOLUME
+}
 
 export const FourWeeksOfPrepV2: React.FC = () => {
   return (
     <AbsoluteFill style={{ backgroundColor: '#0f0d08' }}>
+      {/* Background music — fades in/out, quiet enough to sit under VO */}
+      <Audio src={staticFile('audio/bg-music.mp3')} volume={musicVolume} />
+
       {/* Subtle warm vignette throughout the video */}
       <AbsoluteFill
         style={{
@@ -52,6 +77,9 @@ export const FourWeeksOfPrepV2: React.FC = () => {
         >
           <Scene1Provision />
         </SceneChrome>
+        <Sequence from={VO_DELAY}>
+          <Audio src={staticFile('audio/vo-week1.mp3')} volume={1} />
+        </Sequence>
       </Sequence>
 
       {/* WEEK 2 */}
@@ -65,6 +93,9 @@ export const FourWeeksOfPrepV2: React.FC = () => {
         >
           <Scene2Voice />
         </SceneChrome>
+        <Sequence from={VO_DELAY}>
+          <Audio src={staticFile('audio/vo-week2.mp3')} volume={1} />
+        </Sequence>
       </Sequence>
 
       {/* WEEK 3 */}
@@ -78,6 +109,9 @@ export const FourWeeksOfPrepV2: React.FC = () => {
         >
           <Scene3Inbox />
         </SceneChrome>
+        <Sequence from={VO_DELAY}>
+          <Audio src={staticFile('audio/vo-week3.mp3')} volume={1} />
+        </Sequence>
       </Sequence>
 
       {/* WEEK 4 */}
@@ -92,11 +126,16 @@ export const FourWeeksOfPrepV2: React.FC = () => {
         >
           <Scene4Live />
         </SceneChrome>
+        <Sequence from={VO_DELAY}>
+          <Audio src={staticFile('audio/vo-week4.mp3')} volume={1} />
+        </Sequence>
       </Sequence>
 
       {/* OUTRO */}
       <Sequence from={SCENE_FRAMES * 4} durationInFrames={OUTRO_FRAMES}>
         <Outro />
+        {/* Outro VO plays immediately — no delay, matches the wordmark reveal */}
+        <Audio src={staticFile('audio/vo-outro.mp3')} volume={1} />
       </Sequence>
     </AbsoluteFill>
   )
