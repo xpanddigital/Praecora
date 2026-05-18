@@ -560,44 +560,81 @@ export default function MarketingHome() {
         <Ornament />
       </div>
 
-      {/* ────────────────────── FOUNDER NOTE — centerpiece ────────────────────── */}
+      {/* ────────────────────── FOUNDER NOTE — magazine spread ────────────────────── */}
       <section className="founder-note-bg relative bg-white px-4 py-28 md:px-6 md:py-36">
-        {/* Watermark P */}
+        {/* Watermark P behind everything */}
         <div className="founder-note-watermark">
           <span>P</span>
         </div>
 
-        <div className="relative z-10 mx-auto w-full max-w-3xl">
-          <Eyebrow>Founder note</Eyebrow>
-          <blockquote className="mt-10 space-y-6 font-[var(--font-heading)] text-2xl italic leading-[1.45] text-[#0f0d08] md:text-3xl">
-            <p>
-              <em className="text-rust-deep">"Praecora"</em> comes from the Latin{' '}
-              <em className="text-rust">praeco</em> — the herald who carried important
-              messages on behalf of others — and{' '}
-              <em className="text-rust">cor</em>, meaning heart.
-            </p>
-            <p>
-              I named it that because the music industry doesn't need another generic
-              outreach bot. It needs a herald who actually pays attention to the artist
-              on the other end. Who reads the bio. Who notices the latest release. Who
-              carries your message with the care you'd give it yourself, at a volume
-              you never could alone.
-            </p>
-            <p>
-              I built Praecora because I'd watched too many scouts in this industry burn
-              through accounts, burn through nights, and burn out — all while their
-              actual skill (closing deals) sat unused. The mechanical work was eating
-              the meaningful work.
-            </p>
-            <p>
-              Praecora is what I wish had existed when I was inside this playbook myself.
-            </p>
-          </blockquote>
-          <p className="mt-12 flex items-center gap-3 text-sm">
-            <span className="h-px w-12 bg-rust opacity-40" />
-            <span className="font-semibold tracking-wide text-[#0f0d08]">Joel House</span>
-            <span className="text-neutral-500">Founder, Praecora</span>
-          </p>
+        <div className="relative z-10 mx-auto w-full max-w-6xl">
+          <div className="mb-12 md:mb-16">
+            <Eyebrow>Founder note</Eyebrow>
+          </div>
+
+          <div className="grid gap-12 md:grid-cols-[auto_1fr] md:items-start md:gap-16 lg:gap-20">
+            {/* LEFT — portrait + byline */}
+            <div className="mx-auto flex flex-col items-center md:items-start md:mx-0">
+              {/* Photo with subtle rust hairline frame accent */}
+              <div className="relative">
+                {/* Top-left corner accent */}
+                <div
+                  aria-hidden
+                  className="absolute -left-3 -top-3 h-10 w-10 border-l-2 border-t-2 border-rust"
+                />
+                {/* Bottom-right corner accent */}
+                <div
+                  aria-hidden
+                  className="absolute -bottom-3 -right-3 h-10 w-10 border-b-2 border-r-2 border-rust"
+                />
+                <img
+                  src="/founder/joel-founder.jpg"
+                  alt="Joel House, Founder of Praecora"
+                  width={320}
+                  height={320}
+                  className="relative block h-72 w-72 object-cover shadow-[0_24px_48px_-24px_rgba(184,83,29,0.3)] md:h-80 md:w-80"
+                  loading="lazy"
+                />
+              </div>
+
+              {/* Byline below photo */}
+              <div className="mt-8 w-full max-w-[320px] text-center md:text-left">
+                <div className="mb-3 h-px w-12 bg-rust opacity-60" />
+                <p className="font-semibold tracking-tight text-[#0f0d08]">
+                  Joel House
+                </p>
+                <p className="mt-0.5 text-sm text-neutral-500">
+                  Founder, Praecora
+                </p>
+              </div>
+            </div>
+
+            {/* RIGHT — italic Cormorant quote */}
+            <blockquote className="space-y-6 font-[var(--font-heading)] text-2xl italic leading-[1.45] text-[#0f0d08] md:text-3xl">
+              <p>
+                <em className="text-rust-deep not-italic font-[var(--font-heading)] italic">"Praecora"</em> comes from the Latin{' '}
+                <em className="text-rust">praeco</em> — the herald who carried important
+                messages on behalf of others — and{' '}
+                <em className="text-rust">cor</em>, meaning heart.
+              </p>
+              <p>
+                I named it that because the music industry doesn't need another generic
+                outreach bot. It needs a herald who actually pays attention to the artist
+                on the other end. Who reads the bio. Who notices the latest release. Who
+                carries your message with the care you'd give it yourself, at a volume
+                you never could alone.
+              </p>
+              <p>
+                I built Praecora because I'd watched too many scouts in this industry burn
+                through accounts, burn through nights, and burn out — all while their
+                actual skill (closing deals) sat unused. The mechanical work was eating
+                the meaningful work.
+              </p>
+              <p>
+                Praecora is what I wish had existed when I was inside this playbook myself.
+              </p>
+            </blockquote>
+          </div>
         </div>
       </section>
 
