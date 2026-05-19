@@ -36,14 +36,16 @@ export const metadata: Metadata = {
   },
   description:
     "AI-drafted personalized cold openers, smart reply triage, and a unified inbox — fully managed and built to keep your accounts safe.",
-  // Per the Author Authority Hub brief: the author URL points to
-  // JoelHouse.com/about — NOT the local /author/joel-house page. This
-  // is the load-bearing signal that tells Google's entity resolver
-  // that the canonical author profile lives off-site. Inherited by
-  // every child page; produces <meta name="author"> and
-  // <link rel="author" href="https://joelhouse.com/about"> on every
-  // rendered page.
-  authors: [{ name: "Joel House", url: "https://joelhouse.com/about" }],
+  // Per the Joel House venture-identity brief: rel=author and
+  // meta name=author point at the canonical Person @id
+  // (https://joelhouse.com/#person), not at the /about page. The @id
+  // is the entity-graph identifier that all four Xpand venture sites
+  // reference identically — Google's resolver clusters every Joel
+  // House mention across the ecosystem to that single Person node.
+  // Inherited by every child page; produces:
+  //   <meta name="author" content="Joel House">
+  //   <link rel="author" href="https://joelhouse.com/#person">
+  authors: [{ name: "Joel House", url: "https://joelhouse.com/#person" }],
   openGraph: {
     title: "Praecora — Done-for-you Instagram outreach for music catalog scouts",
     description:

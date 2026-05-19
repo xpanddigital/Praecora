@@ -112,9 +112,23 @@ export function MarketingFooter() {
           </div>
         </div>
 
-        <div className="mt-16 border-t border-black/5 pt-6">
+        <div className="mt-16 flex flex-col items-start justify-between gap-2 border-t border-black/5 pt-6 sm:flex-row sm:items-center">
           <p className="text-xs text-neutral-500">
             © {new Date().getFullYear()} Praecora. All rights reserved.
+          </p>
+          {/* Founder attribution — part of Joel's venture-identity
+              pattern (every Xpand site footer links to his /about for
+              cross-property entity-graph convergence). Small on
+              purpose; not loud branding, just a present signal. */}
+          <p className="text-xs text-neutral-500">
+            Founded by{' '}
+            <a
+              href="https://joelhouse.com/about"
+              rel="author"
+              className="font-medium text-neutral-600 underline-offset-4 hover:text-[#0f0d08] hover:underline"
+            >
+              Joel House
+            </a>
           </p>
         </div>
       </div>

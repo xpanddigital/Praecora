@@ -37,32 +37,28 @@ export const metadata: Metadata = {
  * entity rather than two unrelated declarations.
  */
 function HomepageJsonLd() {
+  // Per Joel's venture-identity brief: Organization and
+  // SoftwareApplication are merged into a single multi-typed entity
+  // (rather than two separate nodes in the @graph) so all venture-
+  // level schema lives on one @id. The founder references the
+  // canonical Person @id at JoelHouse.com — same identifier emitted
+  // by every Xpand venture site, so Google's entity resolver clusters
+  // them. The sameAs points at Joel's per-venture canonical page on
+  // JoelHouse.com — the entity hub for "what is this venture?"
   const json = {
     '@context': 'https://schema.org',
     '@graph': [
       {
-        '@type': 'Organization',
+        '@type': ['Organization', 'SoftwareApplication'],
         '@id': 'https://www.praecora.com#organization',
         name: 'Praecora',
         url: 'https://www.praecora.com',
         logo: 'https://www.praecora.com/opengraph-image',
         description:
           'The music industry CRM and outreach platform built for independent music catalog financing scouts.',
-        founder: {
-          '@type': 'Person',
-          name: 'Joel House',
-        },
-      },
-      {
-        '@type': 'SoftwareApplication',
-        '@id': 'https://www.praecora.com#software',
-        name: 'Praecora',
+        // SoftwareApplication-side properties
         applicationCategory: 'BusinessApplication',
         operatingSystem: 'Web',
-        description:
-          'A music industry CRM and outreach platform. AI-drafted Instagram and email outreach to indie artists, unified inbox with AI reply classification, deal pipeline tuned for catalog finance, and managed account infrastructure.',
-        url: 'https://www.praecora.com',
-        publisher: { '@id': 'https://www.praecora.com#organization' },
         offers: {
           '@type': 'AggregateOffer',
           lowPrice: '700',
@@ -74,6 +70,15 @@ function HomepageJsonLd() {
             unitText: 'MONTH',
           },
         },
+        // Organization-side properties — canonical author signals
+        sameAs: ['https://joelhouse.com/ventures/praecora'],
+        founder: {
+          '@type': 'Person',
+          '@id': 'https://joelhouse.com/#person',
+          name: 'Joel House',
+          url: 'https://joelhouse.com',
+        },
+        creator: { '@id': 'https://joelhouse.com/#person' },
       },
       {
         '@type': 'WebSite',
