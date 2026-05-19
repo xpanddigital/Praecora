@@ -24,6 +24,8 @@ import {
   Sparkles,
   BookOpen,
   Send as SendIcon,
+  CreditCard,
+  Handshake,
 } from 'lucide-react'
 import { Profile } from '@/types/database'
 import { Button } from '@/components/ui/button'
@@ -56,6 +58,8 @@ const adminNavigation = [
   { name: 'Knowledge Bases', href: '/admin/knowledge', icon: BookOpen },
   { name: 'DM Agents', href: '/admin/agents', icon: Wifi },
   { name: 'Scouts', href: '/scouts', icon: Users },
+  { name: 'Billing', href: '/admin/scouts', icon: CreditCard },
+  { name: 'Partners', href: '/admin/partners', icon: Handshake },
 ]
 
 export function Sidebar({ profile }: SidebarProps) {
