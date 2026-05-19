@@ -1,12 +1,25 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
 import { Eyebrow } from '@/components/marketing/Ornament'
 import { HeroVideoPlayer } from '@/components/marketing/HeroVideoPlayer'
 
-export const metadata = {
-  title: 'How it works — Praecora',
+// Targets process-oriented searches ("how Praecora works", "music
+// industry CRM setup", "Instagram outreach onboarding for music").
+// Low direct volume but supports the homepage's primary keyword
+// and answers buyer-stage research questions.
+export const metadata: Metadata = {
+  title: 'How Praecora Works: Music Industry CRM Setup, Step by Step',
   description:
-    'A deeper look at how Praecora delivers managed Instagram and email outreach for music catalog scouts.',
+    'From the day you pay onboarding to the day your first cold DM goes out — the 4-week setup, the daily rhythm after, and exactly what you own and what we manage.',
+  alternates: { canonical: 'https://www.praecora.com/how-it-works' },
+  openGraph: {
+    title: 'How Praecora Works: Music Industry CRM Setup, Step by Step',
+    description:
+      'From the day you pay onboarding to the day your first cold DM goes out. The 4-week setup, the daily rhythm after.',
+    url: 'https://www.praecora.com/how-it-works',
+    type: 'website',
+  },
 }
 
 const TIMELINE = [

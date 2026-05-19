@@ -1,17 +1,83 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, Check } from 'lucide-react'
 import { PricingTable, TIERS } from '@/components/marketing/PricingTable'
 import { Eyebrow } from '@/components/marketing/Ornament'
 
-export const metadata = {
-  title: 'Pricing — Praecora',
+// /pricing supports the homepage's primary keyword (music industry CRM)
+// with a pricing-intent variant. Most pricing-page organic traffic comes
+// from brand-aware searchers — but the Product/Offer schema below also
+// lets Google render price-range rich snippets in regular search results,
+// which is the real SEO win on this page.
+export const metadata: Metadata = {
+  title: 'Pricing — Music Industry CRM for Catalog Scouts | Praecora',
   description:
-    'Four tiers of done-for-you Instagram and email outreach for music catalog scouts. Pay onboarding upfront. Subscription begins when services go live.',
+    'Four tiers of done-for-you Instagram and email outreach for music catalog scouts. $700–$2,800/month. Onboarding fee covers setup; subscription begins when outreach goes live.',
+  alternates: { canonical: 'https://www.praecora.com/pricing' },
+  openGraph: {
+    title: 'Praecora pricing — Music industry CRM for catalog scouts',
+    description:
+      'Four tiers of done-for-you Instagram and email outreach. $700–$2,800/month for music catalog scouts.',
+    url: 'https://www.praecora.com/pricing',
+    type: 'website',
+  },
+}
+
+/**
+ * Product + Offer schema for the pricing page. Each of the four tiers
+ * is a separate Offer so Google can render the full price range, plus
+ * an AggregateOffer summary. Distinct from the homepage's
+ * SoftwareApplication schema — this page is the canonical Product page.
+ */
+function PricingJsonLd() {
+  const offers = TIERS.map((tier) => ({
+    '@type': 'Offer',
+    name: `Praecora ${tier.name}`,
+    description: tier.bestFor,
+    price: tier.monthly.toString(),
+    priceCurrency: 'USD',
+    priceSpecification: {
+      '@type': 'UnitPriceSpecification',
+      price: tier.monthly,
+      priceCurrency: 'USD',
+      unitText: 'MONTH',
+    },
+    availability: 'https://schema.org/InStock',
+    url: `https://www.praecora.com${tier.ctaHref}`,
+  }))
+
+  const json = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    '@id': 'https://www.praecora.com/pricing#product',
+    name: 'Praecora',
+    description:
+      'A music industry CRM and managed outreach platform for independent music catalog financing scouts.',
+    brand: {
+      '@type': 'Brand',
+      name: 'Praecora',
+    },
+    offers: {
+      '@type': 'AggregateOffer',
+      lowPrice: '700',
+      highPrice: '2800',
+      priceCurrency: 'USD',
+      offerCount: TIERS.length.toString(),
+      offers,
+    },
+  }
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(json) }}
+    />
+  )
 }
 
 export default function PricingPage() {
   return (
     <>
+      <PricingJsonLd />
       {/* HERO */}
       <section className="marketing-hero-bg px-4 pt-24 pb-16 md:px-6 md:pt-32 md:pb-20">
         <div className="mx-auto w-full max-w-4xl text-center">

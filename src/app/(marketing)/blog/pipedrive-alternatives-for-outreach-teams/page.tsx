@@ -19,6 +19,7 @@ export const metadata: Metadata = {
     publishedTime: post.publishedAt,
     authors: [post.author.name],
     tags: post.tags,
+    images: [`https://www.praecora.com/api/og?slug=${post.slug}`],
   },
 }
 

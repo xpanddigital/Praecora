@@ -1,11 +1,26 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { Eyebrow } from '@/components/marketing/Ornament'
 
-export const metadata = {
-  title: 'FAQ — Praecora',
+// /faq is the biggest single SEO win on the site because of FAQPage
+// schema. Google often surfaces FAQ-marked-up pages as expandable
+// Q&A boxes directly in search results — capturing high-intent
+// research traffic ("how does Praecora work", "what does Praecora do",
+// "is Praecora against Meta's ToS", "Praecora pricing", etc.) without
+// the user having to click through.
+export const metadata: Metadata = {
+  title: 'Praecora FAQ — Music Industry CRM Questions Answered',
   description:
-    'Common questions about Praecora\'s done-for-you Instagram and email outreach platform for music catalog scouts.',
+    'Common questions about Praecora — what it does, pricing, account safety, Meta\'s ToS, results to expect, and how the platform actually runs day to day.',
+  alternates: { canonical: 'https://www.praecora.com/faq' },
+  openGraph: {
+    title: 'Praecora FAQ — Music Industry CRM Questions Answered',
+    description:
+      'Common questions about Praecora — what it does, pricing, account safety, results to expect, and how it runs day to day.',
+    url: 'https://www.praecora.com/faq',
+    type: 'website',
+  },
 }
 
 const FAQ_GROUPS = [
@@ -121,9 +136,40 @@ const FAQ_GROUPS = [
   },
 ]
 
+/**
+ * FAQPage schema generated from FAQ_GROUPS above. Every Q&A becomes a
+ * Question with an Answer; Google can then render expandable Q&A boxes
+ * directly in search results for question-format queries.
+ *
+ * The Answer text is plain-text (no HTML) — Google strips HTML from
+ * schema markup anyway, and our Q&As above are already plain prose.
+ */
+function FAQJsonLd() {
+  const allItems = FAQ_GROUPS.flatMap((group) => group.items)
+  const json = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: allItems.map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.a,
+      },
+    })),
+  }
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(json) }}
+    />
+  )
+}
+
 export default function FAQPage() {
   return (
     <>
+      <FAQJsonLd />
       <section className="marketing-hero-bg px-4 pt-24 pb-16 md:px-6 md:pt-32 md:pb-20">
         <div className="mx-auto w-full max-w-3xl text-center">
           <div className="mb-8 flex justify-center">
