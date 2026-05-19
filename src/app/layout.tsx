@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans, DM_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 
@@ -65,6 +66,7 @@ export default function RootLayout({
       <body className={`${bodyFont.variable} ${headingFont.variable} ${monoFont.variable} antialiased`}>
         {children}
         <Toaster />
+        <Analytics />
       </body>
     </html>
   );

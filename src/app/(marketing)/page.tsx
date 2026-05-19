@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, Instagram, Mail, Inbox, X, Check } from 'lucide-react'
 import { TIERS } from '@/components/marketing/pricing-data'
@@ -7,15 +8,96 @@ import { PipelineMockup } from '@/components/marketing/PipelineMockup'
 import { Ornament, Eyebrow } from '@/components/marketing/Ornament'
 import { HeroVideoPlayer } from '@/components/marketing/HeroVideoPlayer'
 
-export const metadata = {
-  title: 'Praecora — Outreach that doesn\'t feel like outreach',
+// Primary keyword target for the homepage: "music industry CRM" (and
+// adjacent variants — "music industry CRM software", "CRM for music
+// catalog scouts"). The title leads with the exact-match phrase
+// because Praecora has no existing brand authority for organic search
+// to fall back on. The brand name lives at the end of the title for
+// brand recall.
+export const metadata: Metadata = {
+  title: 'Music Industry CRM for Catalog Scouts | Praecora',
   description:
-    'Praecora carries personalized Instagram and email outreach to every artist worth knowing — at a volume no human can match, with the care no bot can fake. Built for music catalog scouts.',
+    'The music industry CRM built for catalog scouts. AI-drafted Instagram and email outreach, unified inbox, deal pipeline — fully managed.',
+  alternates: { canonical: 'https://www.praecora.com' },
+  openGraph: {
+    title: 'Music Industry CRM for Catalog Scouts | Praecora',
+    description:
+      'The music industry CRM built for catalog scouts. AI-drafted Instagram and email outreach, unified inbox, deal pipeline — fully managed.',
+    url: 'https://www.praecora.com',
+    type: 'website',
+    siteName: 'Praecora',
+  },
+}
+
+/**
+ * Schema.org JSON-LD for the homepage. Declares Praecora as both an
+ * Organization (for entity/knowledge-graph signals) and a
+ * SoftwareApplication (for product/offer rich snippets). Both objects
+ * live in a single `@graph` array so Google reads them as a connected
+ * entity rather than two unrelated declarations.
+ */
+function HomepageJsonLd() {
+  const json = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Organization',
+        '@id': 'https://www.praecora.com#organization',
+        name: 'Praecora',
+        url: 'https://www.praecora.com',
+        logo: 'https://www.praecora.com/opengraph-image',
+        description:
+          'The music industry CRM and outreach platform built for independent music catalog financing scouts.',
+        founder: {
+          '@type': 'Person',
+          name: 'Joel House',
+        },
+      },
+      {
+        '@type': 'SoftwareApplication',
+        '@id': 'https://www.praecora.com#software',
+        name: 'Praecora',
+        applicationCategory: 'BusinessApplication',
+        operatingSystem: 'Web',
+        description:
+          'A music industry CRM and outreach platform. AI-drafted Instagram and email outreach to indie artists, unified inbox with AI reply classification, deal pipeline tuned for catalog finance, and managed account infrastructure.',
+        url: 'https://www.praecora.com',
+        publisher: { '@id': 'https://www.praecora.com#organization' },
+        offers: {
+          '@type': 'AggregateOffer',
+          lowPrice: '700',
+          highPrice: '2800',
+          priceCurrency: 'USD',
+          offerCount: '4',
+          priceSpecification: {
+            '@type': 'UnitPriceSpecification',
+            unitText: 'MONTH',
+          },
+        },
+      },
+      {
+        '@type': 'WebSite',
+        '@id': 'https://www.praecora.com#website',
+        url: 'https://www.praecora.com',
+        name: 'Praecora',
+        publisher: { '@id': 'https://www.praecora.com#organization' },
+        inLanguage: 'en-US',
+      },
+    ],
+  }
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(json) }}
+    />
+  )
 }
 
 export default function MarketingHome() {
   return (
     <>
+      <HomepageJsonLd />
+
       {/* ────────────────────── HERO ────────────────────── */}
       <section className="marketing-hero-bg relative px-4 pt-16 pb-20 md:px-6 md:pt-20 md:pb-24 lg:pt-24">
         <div className="mx-auto w-full max-w-7xl">
@@ -92,6 +174,30 @@ export default function MarketingHome() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ────────────────────── WHAT IT IS ──────────────────────
+           Short, editorial framing of the product with the primary
+           keyword (music industry CRM) in the H2. Sits between the
+           stats bar and the longer "drudgery problem" section so the
+           keyword lands high on the page where Google weights it
+           heavily. */}
+      <section className="border-b border-black/5 bg-white px-4 py-20 md:px-6 md:py-24">
+        <div className="mx-auto w-full max-w-3xl">
+          <Eyebrow>What it is</Eyebrow>
+          <h2 className="mt-6 text-balance text-3xl font-bold leading-[1.15] tracking-tight text-[#0f0d08] md:text-4xl lg:text-5xl">
+            The music industry CRM for catalog scouts.
+          </h2>
+          <p className="mt-8 text-lg leading-relaxed text-neutral-700">
+            Praecora is a purpose-built CRM and outreach platform for
+            independent music catalog financing scouts. AI-drafted
+            Instagram and email outreach goes out at the volume your
+            work actually requires. Replies land in one classified
+            inbox. Deals progress through a pipeline that speaks
+            catalog-finance. ~30 minutes of your time per day. The
+            rest runs itself.
+          </p>
         </div>
       </section>
 
