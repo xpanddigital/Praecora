@@ -135,6 +135,16 @@ export function PricingTable() {
                       <br />
                       <span className="font-medium text-neutral-950">save 2 mo</span>
                     </p>
+                    <Link
+                      href={t.ctaHref}
+                      className={`mt-4 block w-full rounded-lg px-4 py-2.5 text-center text-sm font-semibold transition-colors ${
+                        t.highlight
+                          ? 'bg-neutral-950 text-white hover:bg-neutral-800'
+                          : 'border border-neutral-300 bg-white text-neutral-950 hover:bg-neutral-50'
+                      }`}
+                    >
+                      {t.ctaLabel}
+                    </Link>
                   </th>
                 ))}
               </tr>
