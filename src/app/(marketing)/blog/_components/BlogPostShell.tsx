@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { ArrowRight, ArrowLeft } from 'lucide-react'
+import { ArrowRight, ArrowLeft, ExternalLink } from 'lucide-react'
 import { Eyebrow } from '@/components/marketing/Ornament'
 import {
   type BlogPost,
@@ -8,15 +8,27 @@ import {
   getRelatedPosts,
   isPublished,
 } from '@/app/(marketing)/blog/posts'
+import {
+  JOEL_HOUSE_BIO_SHORT,
+  JOEL_HOUSE_HEADSHOT_URL,
+  JOEL_HOUSE_PERSON_ID,
+  getJoelHousePersonJsonLd,
+} from '@/lib/joel-house-person'
 
 /**
  * The shell every Praecora blog post lives inside. Owns:
- * - hero (eyebrow / title / dek / byline)
- * - structured-data Article JSON-LD
+ * - hero (eyebrow / title / dek / byline with avatar + link to author page)
+ * - structured-data Article + Person JSON-LD as @graph
+ * - rich "About the author" footer block with link to JoelHouse.com
  * - footer CTA to /demo
  * - related-posts surface
  *
- * Each post page imports this and passes its post metadata + content.
+ * Per the Author Authority Hub brief, the Article's `author` field
+ * references the canonical Person by @id (rooted at JoelHouse.com).
+ * The visible byline links to the local /author/joel-house page; the
+ * About-the-author block links externally to JoelHouse.com — both
+ * signals together tell Google's entity resolver that Joel House is
+ * one person whose canonical home is JoelHouse.com.
  */
 export function BlogPostShell({
   post,
@@ -35,10 +47,11 @@ export function BlogPostShell({
   const related = getRelatedPosts(post.slug, 3)
   const publishedDateLabel = formatDate(post.publishedAt)
   const updatedDateLabel = post.updatedAt ? formatDate(post.updatedAt) : null
+  const modifiedIso = post.updatedAt ?? post.publishedAt
 
   return (
     <article>
-      <ArticleJsonLd post={post} />
+      <ArticleAndPersonJsonLd post={post} modifiedIso={modifiedIso} />
 
       {/* ───────── HERO ───────── */}
       <header className="marketing-hero-bg border-b border-black/5 px-4 pt-16 pb-14 md:px-6 md:pt-24 md:pb-20">
@@ -58,18 +71,34 @@ export function BlogPostShell({
             {post.description}
           </p>
 
-          <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-black/5 pt-6">
-            <div>
-              <p className="text-sm font-semibold text-[#0f0d08]">
-                {post.author.name}
-              </p>
-              <p className="text-xs text-neutral-500">{post.author.role}</p>
-            </div>
+          {/* Compact top byline: avatar + name (links to author page) +
+              role + machine-readable dates. */}
+          <div className="mt-10 flex flex-wrap items-center gap-x-4 gap-y-3 border-t border-black/5 pt-6">
+            <Link
+              href="/author/joel-house"
+              className="group flex items-center gap-3"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={JOEL_HOUSE_HEADSHOT_URL}
+                alt="Joel House"
+                width={40}
+                height={40}
+                className="h-10 w-10 rounded-full border border-black/10 object-cover"
+              />
+              <div>
+                <p className="text-sm font-semibold text-[#0f0d08] underline-offset-4 group-hover:underline">
+                  {post.author.name}
+                </p>
+                <p className="text-xs text-neutral-500">{post.author.role}</p>
+              </div>
+            </Link>
             <span className="text-neutral-300" aria-hidden>
               ·
             </span>
             <p className="text-xs text-neutral-500">
-              Published <time dateTime={post.publishedAt}>{publishedDateLabel}</time>
+              Published{' '}
+              <time dateTime={post.publishedAt}>{publishedDateLabel}</time>
               {updatedDateLabel ? (
                 <>
                   {' '}
@@ -84,6 +113,56 @@ export function BlogPostShell({
 
       {/* ───────── BODY ───────── */}
       <section className="bg-white px-4 py-20 md:px-6 md:py-28">{children}</section>
+
+      {/* ───────── ABOUT THE AUTHOR ─────────
+           Rich author block per the Author Authority Hub brief. The
+           external link to JoelHouse.com is the load-bearing signal —
+           tells Google this article was written by a person whose
+           canonical profile lives off-site at JoelHouse.com. */}
+      <section className="border-t border-black/5 bg-white px-4 py-16 md:px-6 md:py-20">
+        <div className="mx-auto w-full max-w-3xl">
+          <Eyebrow>About the author</Eyebrow>
+          <div className="mt-6 flex flex-col items-start gap-6 md:flex-row md:gap-10">
+            <Link
+              href="/author/joel-house"
+              className="shrink-0"
+              aria-label="Joel House — author profile"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={JOEL_HOUSE_HEADSHOT_URL}
+                alt="Joel House"
+                width={96}
+                height={96}
+                className="h-24 w-24 rounded-full border border-black/10 object-cover shadow-sm"
+              />
+            </Link>
+            <div className="flex-1">
+              <p className="text-base font-semibold text-[#0f0d08]">
+                Joel House
+              </p>
+              <p className="mt-3 text-base leading-relaxed text-neutral-700">
+                {JOEL_HOUSE_BIO_SHORT}
+              </p>
+              <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
+                <Link
+                  href="/author/joel-house"
+                  className="font-medium text-neutral-700 underline-offset-4 hover:text-[#0f0d08] hover:underline"
+                >
+                  More from Joel on Praecora →
+                </Link>
+                <a
+                  href="https://joelhouse.com"
+                  className="inline-flex items-center gap-1 font-medium text-[#b8531d] underline-offset-4 hover:underline"
+                >
+                  Read more about Joel at JoelHouse.com{' '}
+                  <ExternalLink className="h-3.5 w-3.5" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* ───────── CTA ───────── */}
       <section className="border-t border-black/5 bg-[#faf8f3] px-4 py-24 md:px-6 md:py-28">
@@ -189,33 +268,50 @@ function formatDate(iso: string): string {
 }
 
 /**
- * Schema.org Article JSON-LD. Helps both Google's classic web-page
- * understanding and the LLM-citation surfaces (Praecora's audience
- * runs heavy ChatGPT/Perplexity research).
+ * Combined Article + Person JSON-LD in a single @graph block. Per the
+ * Author Authority Hub brief, the Article's `author` field references
+ * the canonical Person by @id (`https://joelhouse.com/#person`) rather
+ * than embedding a separate Person inline. This means every blog post
+ * across every Xpand property points at the SAME entity — which is
+ * what Google's entity resolver clusters into a single Knowledge Graph
+ * Person.
  */
-function ArticleJsonLd({ post }: { post: BlogPost }) {
+function ArticleAndPersonJsonLd({
+  post,
+  modifiedIso,
+}: {
+  post: BlogPost
+  modifiedIso: string
+}) {
+  const articleUrl = `https://www.praecora.com/blog/${post.slug}`
   const json = {
     '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: post.title,
-    description: post.description,
-    datePublished: post.publishedAt,
-    dateModified: post.updatedAt ?? post.publishedAt,
-    author: {
-      '@type': 'Person',
-      name: post.author.name,
-      jobTitle: post.author.role,
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: 'Praecora',
-      url: 'https://www.praecora.com',
-    },
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': `https://www.praecora.com/blog/${post.slug}`,
-    },
-    keywords: post.tags.join(', '),
+    '@graph': [
+      {
+        '@type': 'BlogPosting',
+        '@id': `${articleUrl}#article`,
+        mainEntityOfPage: articleUrl,
+        headline: post.title,
+        description: post.description,
+        image: `https://www.praecora.com/api/og?slug=${post.slug}`,
+        datePublished: post.publishedAt,
+        dateModified: modifiedIso,
+        author: { '@id': JOEL_HOUSE_PERSON_ID },
+        publisher: {
+          '@type': 'Organization',
+          '@id': 'https://www.praecora.com#organization',
+          name: 'Praecora',
+          url: 'https://www.praecora.com',
+          logo: {
+            '@type': 'ImageObject',
+            url: 'https://www.praecora.com/opengraph-image',
+          },
+        },
+        keywords: post.tags.join(', '),
+      },
+      // Canonical Person — same shape on every Xpand property.
+      getJoelHousePersonJsonLd(),
+    ],
   }
   return (
     <script

@@ -43,6 +43,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.9,
     },
+    {
+      // Author profile page — part of the Author Authority Hub pattern.
+      // Indexable on purpose; tells Google the relationship between
+      // the Praecora property and the canonical author entity at
+      // JoelHouse.com.
+      url: `${BASE}/author/joel-house`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
   ]
 
   const postRoutes: MetadataRoute.Sitemap = visiblePosts.map((p) => ({
